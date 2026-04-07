@@ -3,933 +3,1356 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aura — All Screens</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/lucide-static@0.441.0/font/lucide.min.css" rel="stylesheet">
+<title>Aura — Прототип приложения</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
-:root {
-  --aura: #74AEFA;
-  --aura-light: #BAD7FD;
-  --aura-dark: #343963;
-  --aura-glow: rgba(116,174,250,0.14);
-  --bg: #1A1D2E;
-  --bg2: #222540;
-  --bg3: #2A2D4A;
-  --surface: #2E3155;
-  --surface2: #343963;
-  --text: #BAD7FD;
-  --text2: #8AAED4;
-  --text3: #5A6E90;
-  --green: #74AEFA;
-  --amber: #F29E9E;
-  --red: #F29E9E;
-  --r: 24px;
-  --rs: 14px;
-}
+  :root {
+    --aura: #8B7CF6;
+    --aura-light: #C4BAF9;
+    --aura-dark: #5B4BD6;
+    --aura-glow: rgba(139,124,246,0.18);
+    --bg: #0E0D1A;
+    --bg2: #161526;
+    --bg3: #1E1D30;
+    --surface: #232238;
+    --surface2: #2C2B44;
+    --text: #F0EEF8;
+    --text2: #A09EC0;
+    --text3: #6A6880;
+    --green: #4FC97A;
+    --amber: #F5A523;
+    --red: #F06060;
+    --radius: 24px;
+    --radius-sm: 14px;
+  }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-body {
-  font-family: 'Inter', sans-serif;
-  background: #141629;
-  padding: 60px 40px;
-  min-width: 100%;
-}
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 40px 20px 60px;
+  }
 
-/* ── PAGE HEADER ── */
-.page-header {
-  margin-bottom: 48px;
-}
-.page-header h1 {
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--aura);
-  letter-spacing: -0.02em;
-  margin-bottom: 6px;
-}
-.page-header p { font-size: 13px; color: var(--text3); }
+  /* ─── META UI ─── */
+  .meta-header {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+  }
+  .meta-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--aura);
+    letter-spacing: 0.04em;
+  }
+  .meta-subtitle {
+    font-size: 12px;
+    color: var(--text3);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .scenario-tabs {
+    display: flex;
+    gap: 8px;
+    background: var(--bg2);
+    border-radius: 100px;
+    padding: 4px;
+    border: 1px solid var(--surface2);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .tab-btn {
+    padding: 8px 18px;
+    border-radius: 100px;
+    border: none;
+    background: transparent;
+    color: var(--text3);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.25s;
+    white-space: nowrap;
+  }
+  .tab-btn.active {
+    background: var(--aura);
+    color: white;
+  }
 
-/* ── SECTION LABEL ── */
-.section-row {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 24px;
-  margin-top: 48px;
-}
-.section-row:first-of-type { margin-top: 0; }
-.section-row h2 {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text3);
-  white-space: nowrap;
-}
-.section-line {
-  flex: 1;
-  height: 1px;
-  background: var(--surface2);
-}
+  /* ─── PHONE SHELL ─── */
+  .phone-wrap {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    max-width: 900px;
+    flex-wrap: wrap;
+  }
+  .phone {
+    width: 375px;
+    height: 780px;
+    background: var(--bg2);
+    border-radius: 48px;
+    border: 2px solid var(--surface2);
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 0 0 6px var(--bg3), 0 40px 80px rgba(0,0,0,0.6), 0 0 60px var(--aura-glow);
+    flex-shrink: 0;
+  }
+  .phone-notch {
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 120px; height: 30px;
+    background: var(--bg);
+    border-radius: 0 0 20px 20px;
+    z-index: 100;
+  }
+  .phone-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 36px 24px 0;
+    font-size: 12px;
+    color: var(--text3);
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+  }
+  .phone-inner {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+  }
 
-/* ── FRAMES ROW ── */
-.frames {
-  display: flex;
-  gap: 24px;
-  align-items: flex-start;
-  flex-wrap: nowrap;
-  overflow-x: visible;
-}
+  /* ─── SCREENS ─── */
+  .screen {
+    position: absolute;
+    inset: 0;
+    padding: 60px 0 80px;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s, transform 0.35s;
+    transform: translateY(16px);
+    overflow-y: auto;
+  }
+  .screen.active {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0);
+  }
+  .screen-content {
+    padding: 16px 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
 
-/* ── PHONE FRAME ── */
-.frame {
-  width: 375px;
-  min-height: 780px;
-  background: var(--bg2);
-  border-radius: 44px;
-  border: 1.5px solid var(--surface2);
-  overflow: hidden;
-  position: relative;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-}
-.frame-label {
-  position: absolute;
-  bottom: -28px;
-  left: 0; right: 0;
-  text-align: center;
-  font-size: 11px;
-  color: var(--text3);
-  font-weight: 500;
-}
+  /* ─── BOTTOM NAV ─── */
+  .bottom-nav {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 80px;
+    background: linear-gradient(to top, var(--bg2), var(--bg2) 70%, transparent);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 8px 16px;
+    z-index: 50;
+  }
+  .nav-btn {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    background: none; border: none; cursor: pointer;
+    color: var(--text3); font-family: 'DM Sans', sans-serif;
+    font-size: 10px; padding: 8px 16px; border-radius: 16px;
+    transition: all 0.2s;
+  }
+  .nav-btn.active { color: var(--aura); }
+  .nav-btn .icon { font-size: 20px; }
 
-/* ── STATUS BAR ── */
-.status-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 24px 0;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--text3);
-  flex-shrink: 0;
-}
+  /* ─── COMPONENTS ─── */
+  .page-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    color: var(--text);
+    line-height: 1.2;
+  }
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text3);
+    font-weight: 500;
+  }
+  .card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 20px;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .card-sm {
+    background: var(--surface);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .btn-primary {
+    background: var(--aura);
+    color: white;
+    border: none;
+    border-radius: 100px;
+    padding: 16px 28px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.2s;
+    letter-spacing: 0.01em;
+  }
+  .btn-primary:hover { background: var(--aura-dark); transform: translateY(-1px); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--text2);
+    border: 1px solid var(--surface2);
+    border-radius: 100px;
+    padding: 14px 28px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--aura); color: var(--aura); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--text3);
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--surface2);
+    border-radius: 100px;
+    padding: 6px 14px;
+    font-size: 13px;
+    color: var(--text2);
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+  }
+  .tag.selected { background: var(--aura-glow); border-color: var(--aura); color: var(--aura); }
+  .divider { height: 1px; background: rgba(255,255,255,0.06); }
 
-/* ── SCREEN CONTENT ── */
-.sc {
-  padding: 16px 24px 80px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  flex: 1;
-}
+  /* ─── AURA ORB ─── */
+  .orb-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .orb {
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #B8AEFF, var(--aura) 50%, var(--aura-dark));
+    box-shadow: 0 0 40px var(--aura-glow), 0 0 80px rgba(139,124,246,0.1);
+    animation: breathe 4s ease-in-out infinite;
+  }
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 40px var(--aura-glow), 0 0 80px rgba(139,124,246,0.1); }
+    50% { transform: scale(1.05); box-shadow: 0 0 60px rgba(139,124,246,0.35), 0 0 100px rgba(139,124,246,0.15); }
+  }
+  .orb-label { font-size: 13px; color: var(--text3); }
 
-/* ── BOTTOM NAV ── */
-.bnav {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 80px;
-  background: linear-gradient(to top, var(--bg2) 70%, transparent);
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  padding: 0 8px 16px;
-}
-.bnav-btn {
-  display: flex; flex-direction: column; align-items: center; gap: 4px;
-  color: var(--text3); font-size: 10px; font-weight: 500;
-  padding: 8px 16px;
-}
-.bnav-btn.active { color: var(--aura); }
-.bnav-btn i { font-size: 20px; }
+  /* ─── STATUS ROW ─── */
+  .status-row {
+    display: flex;
+    gap: 8px;
+  }
+  .status-pill {
+    flex: 1;
+    background: var(--surface);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .status-pill .s-label { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; }
+  .status-pill .s-val { font-size: 15px; font-weight: 600; }
+  .s-green { color: var(--green); }
+  .s-amber { color: var(--amber); }
+  .s-aura { color: var(--aura); }
 
-/* ── TYPOGRAPHY ── */
-.title { font-size: 26px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; line-height: 1.2; }
-.title-sm { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; line-height: 1.2; }
-.label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); }
-.body { font-size: 14px; color: var(--text2); line-height: 1.6; }
-.caption { font-size: 12px; color: var(--text3); line-height: 1.5; }
+  /* ─── INSIGHT CARD ─── */
+  .insight-card {
+    background: linear-gradient(135deg, rgba(139,124,246,0.15), rgba(139,124,246,0.05));
+    border: 1px solid rgba(139,124,246,0.25);
+    border-radius: var(--radius);
+    padding: 20px;
+  }
+  .insight-title { font-size: 14px; color: var(--text2); margin-bottom: 6px; }
+  .insight-text { font-size: 16px; line-height: 1.5; font-weight: 400; }
 
-/* ── ORB ── */
-.orb {
-  width: 110px; height: 110px; border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #C4BAF9, var(--aura) 50%, var(--aura-dark));
-  box-shadow: 0 0 40px rgba(139,124,246,0.25);
-  margin: 0 auto;
-  flex-shrink: 0;
-}
-.orb-sm {
-  width: 90px; height: 90px; border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #C4BAF9, var(--aura) 50%, var(--aura-dark));
-  box-shadow: 0 0 30px rgba(139,124,246,0.2);
-  margin: 0 auto;
-  flex-shrink: 0;
-}
+  /* ─── PERMISSION ITEM ─── */
+  .perm-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    background: var(--surface);
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .perm-icon {
+    width: 44px; height: 44px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .perm-info { flex: 1; }
+  .perm-name { font-size: 15px; font-weight: 500; margin-bottom: 3px; }
+  .perm-desc { font-size: 12px; color: var(--text3); line-height: 1.4; }
+  .toggle {
+    width: 44px; height: 26px;
+    background: var(--surface2);
+    border-radius: 100px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.25s;
+    flex-shrink: 0;
+    border: none;
+  }
+  .toggle.on { background: var(--aura); }
+  .toggle::after {
+    content: '';
+    position: absolute;
+    width: 20px; height: 20px;
+    background: white;
+    border-radius: 50%;
+    top: 3px; left: 3px;
+    transition: left 0.25s;
+  }
+  .toggle.on::after { left: 21px; }
 
-/* ── CARDS ── */
-.card {
-  background: var(--surface);
-  border-radius: var(--r);
-  padding: 20px;
-  border: 1px solid rgba(255,255,255,0.05);
-}
-.card-sm {
-  background: var(--surface);
-  border-radius: var(--rs);
-  padding: 14px 16px;
-  border: 1px solid rgba(255,255,255,0.05);
-}
-.card-accent {
-  background: linear-gradient(135deg, rgba(139,124,246,0.14), rgba(139,124,246,0.05));
-  border: 1px solid rgba(139,124,246,0.22);
-  border-radius: var(--r);
-  padding: 20px;
-}
+  /* ─── EMOJI FEEDBACK ─── */
+  .emoji-row {
+    display: flex;
+    justify-content: space-around;
+    padding: 8px 0;
+  }
+  .emoji-btn {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    background: none; border: none; cursor: pointer;
+    padding: 12px;
+    border-radius: 16px;
+    transition: all 0.2s;
+    border: 2px solid transparent;
+  }
+  .emoji-btn .em { font-size: 32px; }
+  .emoji-btn .em-label { font-size: 12px; color: var(--text3); font-family: 'DM Sans', sans-serif; }
+  .emoji-btn.selected { background: var(--aura-glow); border-color: var(--aura); }
+  .emoji-btn:hover { background: var(--surface2); }
 
-/* ── BUTTONS ── */
-.btn-p {
-  background: var(--aura); color: white; border: none;
-  border-radius: 100px; padding: 15px 24px;
-  font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600;
-  width: 100%; text-align: center;
-}
-.btn-s {
-  background: transparent; color: var(--text2);
-  border: 1px solid var(--surface2); border-radius: 100px;
-  padding: 13px 24px; font-family: 'Inter', sans-serif; font-size: 13px;
-  width: 100%; text-align: center;
-}
-.btn-ghost {
-  background: transparent; color: var(--text3); border: none;
-  font-family: 'Inter', sans-serif; font-size: 13px;
-  width: 100%; text-align: center; text-decoration: underline;
-  text-underline-offset: 3px;
-}
+  /* ─── WEEKLY INSIGHT CARD ─── */
+  .weekly-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 18px;
+    border: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .weekly-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .weekly-pattern { font-size: 15px; font-weight: 500; line-height: 1.4; flex: 1; }
+  .rating-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .rating-tag {
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: 12px;
+    border: 1px solid var(--surface2);
+    cursor: pointer;
+    background: transparent;
+    color: var(--text2);
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+  }
+  .rating-tag:hover, .rating-tag.sel { background: var(--aura-glow); border-color: var(--aura); color: var(--aura); }
 
-/* ── STATUS PILLS ── */
-.pill-row { display: flex; gap: 8px; }
-.pill {
-  flex: 1; background: var(--surface); border-radius: var(--rs);
-  padding: 12px 14px; border: 1px solid rgba(255,255,255,0.05);
-}
-.pill .pl { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text3); margin-bottom: 4px; }
-.pill .pv { font-size: 14px; font-weight: 600; }
+  /* ─── PROGRESS BAR ─── */
+  .progress-bar-wrap {
+    background: var(--surface2);
+    border-radius: 100px;
+    height: 6px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--aura);
+    border-radius: 100px;
+    transition: width 0.8s cubic-bezier(.4,0,.2,1);
+  }
 
-/* ── ICON BOX ── */
-.icon-box {
-  width: 44px; height: 44px; border-radius: 14px;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
-.icon-box i { font-size: 20px; }
+  /* ─── ONBOARDING SLIDES ─── */
+  .slide-dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+  }
+  .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--surface2);
+    transition: all 0.3s;
+  }
+  .dot.active { width: 20px; border-radius: 100px; background: var(--aura); }
 
-/* ── PERM ITEM ── */
-.perm-item {
-  display: flex; align-items: center; gap: 14px;
-  padding: 16px; background: var(--surface);
-  border-radius: var(--rs); border: 1px solid rgba(255,255,255,0.05);
-}
-.perm-name { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
-.perm-desc { font-size: 11px; color: var(--text3); line-height: 1.4; }
+  /* ─── ACTION OPTIONS ─── */
+  .action-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .action-opt {
+    background: var(--surface);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: var(--radius-sm);
+    padding: 14px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+  }
+  .action-opt:hover { border-color: var(--aura); background: var(--aura-glow); }
+  .action-opt .ao-icon { font-size: 24px; }
+  .action-opt .ao-label { font-size: 12px; color: var(--text2); line-height: 1.3; font-family: 'DM Sans', sans-serif; }
+  .action-opt.skip-opt { grid-column: span 2; flex-direction: row; gap: 10px; }
 
-/* ── TOGGLE ── */
-.toggle {
-  width: 44px; height: 26px; border-radius: 100px;
-  flex-shrink: 0; position: relative;
-}
-.toggle.on { background: var(--aura); }
-.toggle.off { background: var(--surface2); }
-.toggle::after {
-  content: ''; position: absolute;
-  width: 20px; height: 20px; background: white; border-radius: 50%;
-  top: 3px;
-}
-.toggle.on::after { left: 21px; }
-.toggle.off::after { left: 3px; }
+  /* ─── TIMER ─── */
+  .timer-circle {
+    width: 160px; height: 160px;
+    margin: 0 auto;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .timer-circle svg { position: absolute; inset: 0; transform: rotate(-90deg); }
+  .timer-circle .timer-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 42px;
+    color: var(--text);
+    position: relative;
+    z-index: 1;
+  }
 
-/* ── PROGRESS BAR ── */
-.bar-wrap { height: 6px; background: var(--surface2); border-radius: 100px; overflow: hidden; }
-.bar-fill { height: 100%; border-radius: 100px; }
+  /* ─── SETTINGS ─── */
+  .setting-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .setting-row:last-child { border-bottom: none; }
+  .setting-info .s-name { font-size: 15px; }
+  .setting-info .s-sub { font-size: 12px; color: var(--text3); margin-top: 2px; }
 
-/* ── DOTS ── */
-.dots { display: flex; gap: 6px; }
-.dot { width: 6px; height: 6px; border-radius: 50%; background: var(--surface2); }
-.dot.a { width: 20px; border-radius: 100px; background: var(--aura); }
+  /* ─── NOTIFICATION BANNER ─── */
+  .notif-banner {
+    position: absolute;
+    top: 56px; left: 16px; right: 16px;
+    background: var(--surface2);
+    border-radius: 18px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 200;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    cursor: pointer;
+    animation: slideDown 0.4s cubic-bezier(.4,0,.2,1) forwards;
+    opacity: 0;
+  }
+  @keyframes slideDown {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  .notif-icon { font-size: 28px; flex-shrink: 0; }
+  .notif-app { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; }
+  .notif-msg { font-size: 14px; font-weight: 500; margin-top: 2px; line-height: 1.3; }
 
-/* ── TAGS ── */
-.tag {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: var(--surface2); border-radius: 100px;
-  padding: 8px 16px; font-size: 13px; color: var(--text2);
-  border: 1px solid transparent;
-}
-.tag.sel { background: var(--aura-glow); border-color: var(--aura); color: var(--aura); }
-.rating-tag {
-  padding: 6px 14px; border-radius: 100px; font-size: 12px;
-  border: 1px solid var(--surface2); background: transparent; color: var(--text2);
-}
-.rating-tag.sel { background: var(--aura-glow); border-color: var(--aura); color: var(--aura); }
+  /* ─── SIDEBAR FLOW INFO ─── */
+  .flow-info {
+    background: var(--bg2);
+    border: 1px solid var(--surface2);
+    border-radius: var(--radius);
+    padding: 24px;
+    width: 280px;
+    flex-shrink: 0;
+  }
+  .flow-info h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    color: var(--aura);
+    margin-bottom: 16px;
+  }
+  .flow-step {
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 8px;
+  }
+  .flow-step:last-child { border-bottom: none; }
+  .flow-step:hover { padding-left: 4px; }
+  .flow-step.current .step-num { background: var(--aura); color: white; }
+  .step-num {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: var(--surface2);
+    color: var(--text3);
+    font-size: 11px;
+    font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+    transition: all 0.2s;
+  }
+  .step-text { font-size: 13px; color: var(--text2); line-height: 1.4; }
+  .flow-step.current .step-text { color: var(--text); }
 
-/* ── ACTION GRID ── */
-.action-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-.action-opt {
-  background: var(--surface); border: 1px solid rgba(255,255,255,0.05);
-  border-radius: var(--rs); padding: 14px 10px;
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-}
-.action-opt i { font-size: 22px; color: var(--aura-light); }
-.action-opt .ao-l { font-size: 12px; color: var(--text2); text-align: center; line-height: 1.3; }
+  /* ─── ANIMATIONS ─── */
+  .fade-in { animation: fadeInUp 0.4s ease forwards; }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 
-/* ── WEEKLY CARD ── */
-.weekly-card {
-  background: var(--surface); border-radius: var(--r);
-  padding: 18px; border: 1px solid rgba(255,255,255,0.05);
-  display: flex; flex-direction: column; gap: 10px;
-}
-.weekly-pattern { font-size: 14px; font-weight: 500; color: var(--text); line-height: 1.4; }
+  /* ─── SCROLLBAR ─── */
+  .screen::-webkit-scrollbar { width: 3px; }
+  .screen::-webkit-scrollbar-track { background: transparent; }
+  .screen::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 100px; }
 
-/* ── SETTING ROW ── */
-.setting-row {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-.setting-row:last-child { border-bottom: none; }
+  .back-btn {
+    background: none; border: none; color: var(--text3);
+    font-family: 'DM Sans', sans-serif; font-size: 14px;
+    cursor: pointer; display: flex; align-items: center; gap: 6px;
+    padding: 4px 0;
+  }
+  .back-btn:hover { color: var(--text); }
 
-/* ── NOTIF BANNER ── */
-.notif-banner {
-  background: var(--surface2); border-radius: 18px;
-  padding: 14px 16px; display: flex; align-items: center; gap: 12px;
-  border: 1px solid rgba(255,255,255,0.08);
-  margin: 0 0 4px;
-}
-.notif-banner i { font-size: 24px; color: var(--aura-light); flex-shrink: 0; }
-
-/* ── TIMER ── */
-.timer-wrap {
-  width: 160px; height: 160px; position: relative;
-  margin: 0 auto; display: flex; align-items: center; justify-content: center;
-}
-.timer-wrap svg { position: absolute; inset: 0; transform: rotate(-90deg); }
-.timer-num { font-size: 42px; font-weight: 700; color: var(--text); position: relative; z-index: 1; }
-
-/* ── EMOJI ROW ── */
-.emoji-row { display: flex; justify-content: space-around; padding: 8px 0; }
-.emoji-opt {
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-  padding: 12px 16px; border-radius: 16px; border: 2px solid transparent;
-}
-.emoji-opt.sel { background: var(--aura-glow); border-color: var(--aura); }
-.emoji-opt i { font-size: 28px; }
-.emoji-opt .el { font-size: 12px; color: var(--text3); }
-
-/* ── STAT BOX ── */
-.stat-box {
-  background: var(--aura-glow); border: 1px solid var(--aura);
-  border-radius: var(--rs); padding: 10px 14px; text-align: center;
-}
-.stat-num { font-size: 20px; font-weight: 700; color: var(--aura); }
-.stat-l { font-size: 10px; color: var(--text3); margin-top: 2px; }
-
-/* ── BACK BTN ── */
-.back { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text3); }
-.back i { font-size: 16px; }
-
-/* ── DIVIDER ── */
-.divider { height: 1px; background: rgba(255,255,255,0.06); }
-
-/* ── ROW FLEX ── */
-.row { display: flex; align-items: center; gap: 12px; }
-.row-between { display: flex; align-items: center; justify-content: space-between; }
-
-/* ── CHECK LIST ── */
-.check-item {
-  display: flex; align-items: center; gap: 10px;
-  font-size: 13px; color: var(--green);
-}
-.check-item i { font-size: 16px; }
-
-/* ── SLIDE FEATURE ROW ── */
-.feature-row {
-  display: flex; gap: 14px; align-items: flex-start;
-  padding: 4px 0;
-}
-.feature-row i { font-size: 18px; color: var(--aura-light); flex-shrink: 0; margin-top: 2px; }
-.feature-name { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 2px; }
-.feature-desc { font-size: 12px; color: var(--text3); }
-
-/* ── STEP ARROW ── */
-.step-arrow { text-align: center; color: var(--text3); font-size: 18px; padding: 2px 0; }
-.step-pill {
-  display: flex; align-items: center; gap: 14px;
-  background: var(--surface); border-radius: var(--rs);
-  padding: 14px 16px; border: 1px solid rgba(255,255,255,0.05);
-}
-.step-pill i { font-size: 18px; color: var(--aura-light); flex-shrink: 0; }
-.step-pill-txt { font-size: 13px; color: var(--text2); }
+  @media (max-width: 720px) {
+    .flow-info { display: none; }
+    .phone { width: 340px; height: 720px; }
+  }
 </style>
 </head>
 <body>
 
-<div class="page-header">
-  <h1>Aura — All Screens</h1>
-  <p>UX Prototype · Stage 2 · Колпачкова Е. · html.to.design import ready</p>
+<div class="meta-header">
+  <div>
+    <div class="meta-logo">Aura</div>
+    <div class="meta-subtitle">UX Прототип — Этап 2 · Колпачкова Е.</div>
+  </div>
+  <div class="scenario-tabs">
+    <button class="tab-btn active" onclick="switchScenario('onboarding')">Онбординг</button>
+    <button class="tab-btn" onclick="switchScenario('notification')">Уведомление</button>
+    <button class="tab-btn" onclick="switchScenario('insights')">Инсайты</button>
+  </div>
 </div>
 
-<!-- ════════════════════════════════════════════════════ -->
-<!-- SCENARIO 1: ONBOARDING -->
-<!-- ════════════════════════════════════════════════════ -->
-<div class="section-row">
-  <h2>Сценарий 1 — Онбординг</h2>
-  <div class="section-line"></div>
-</div>
+<div class="phone-wrap">
 
-<div class="frames" style="margin-bottom:60px;">
-
-  <!-- 1.1 Welcome -->
-  <div style="position:relative;">
-    <div class="frame">
-      <div class="status-bar"><span>9:41</span><span style="display:flex;gap:4px;align-items:center;"><i class="icon-signal-high" style="font-size:14px;"></i></span></div>
-      <div class="sc" style="justify-content:center;align-items:center;text-align:center;gap:28px;padding-bottom:40px;">
-        <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
-          <div class="orb"></div>
-          <div class="caption">Знакомься — это Aura</div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:10px;">
-          <div class="title">Твой личный<br>компаньон</div>
-          <div class="body" style="max-width:260px;">Адаптируется под тебя. Замечает, когда нужна пауза. Подсказывает — не командует.</div>
-        </div>
-        <div style="width:100%;display:flex;flex-direction:column;gap:10px;">
-          <div class="btn-p">Начать</div>
-        </div>
-      </div>
+  <!-- PHONE -->
+  <div class="phone">
+    <div class="phone-notch"></div>
+    <div class="phone-status">
+      <span>9:41</span>
+      <span>●●●</span>
     </div>
-    <div class="frame-label">1.1 Приветствие</div>
-  </div>
+    <div class="phone-inner">
 
-  <!-- 1.2 Slide 1 -->
-  <div style="position:relative;">
-    <div class="frame">
-      <div class="status-bar"><span>9:41</span></div>
-      <div class="sc" style="justify-content:space-between;">
-        <div class="dots"><div class="dot a"></div><div class="dot"></div><div class="dot"></div></div>
-        <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:20px;">
-          <div style="display:flex;justify-content:center;"><i class="icon-telescope" style="font-size:48px;color:var(--aura-light);"></i></div>
-          <div class="title" style="text-align:center;">Что умеет<br>Aura</div>
-          <div class="card" style="display:flex;flex-direction:column;gap:14px;">
-            <div class="feature-row"><i class="icon-bar-chart-2"></i><div><div class="feature-name">Читает твоё состояние</div><div class="feature-desc">Данные с часов, календаря и твоих заметок</div></div></div>
-            <div class="divider"></div>
-            <div class="feature-row"><i class="icon-zap"></i><div><div class="feature-name">Предлагает вовремя</div><div class="feature-desc">Не «медитируй 10 минут», а «пауза именно сейчас»</div></div></div>
-            <div class="divider"></div>
-            <div class="feature-row"><i class="icon-brain"></i><div><div class="feature-name">Учится у тебя</div><div class="feature-desc">Каждую неделю становится точнее</div></div></div>
+      <!-- ══════════════════════════════════ -->
+      <!-- SCENARIO 1: ONBOARDING -->
+      <!-- ══════════════════════════════════ -->
+
+      <!-- S1: Welcome -->
+      <div class="screen active" id="s-welcome">
+        <div class="screen-content" style="justify-content:center;align-items:center;text-align:center;gap:28px;">
+          <div class="orb-wrap">
+            <div class="orb"></div>
+            <div class="orb-label">Знакомься — это Aura</div>
           </div>
-        </div>
-        <div class="btn-p">Дальше</div>
-      </div>
-    </div>
-    <div class="frame-label">1.2 Слайд — Возможности</div>
-  </div>
-
-  <!-- 1.3 Slide 2 -->
-  <div style="position:relative;">
-    <div class="frame">
-      <div class="status-bar"><span>9:41</span></div>
-      <div class="sc" style="justify-content:space-between;">
-        <div class="dots"><div class="dot"></div><div class="dot a"></div><div class="dot"></div></div>
-        <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:14px;">
-          <div style="display:flex;justify-content:center;"><i class="icon-cpu" style="font-size:48px;color:var(--aura-light);"></i></div>
-          <div class="title" style="text-align:center;">Как это<br>работает</div>
-          <div class="step-pill"><i class="icon-eye"></i><div class="step-pill-txt">Aura замечает паттерны в твоём дне</div></div>
-          <div class="step-arrow"><i class="icon-chevron-down" style="font-size:18px;color:var(--text3);"></i></div>
-          <div class="step-pill"><i class="icon-search"></i><div class="step-pill-txt">Анализирует — что у тебя уникально</div></div>
-          <div class="step-arrow"><i class="icon-chevron-down" style="font-size:18px;color:var(--text3);"></i></div>
-          <div class="step-pill"><i class="icon-message-circle"></i><div class="step-pill-txt">Предлагает — именно тебе, именно сейчас</div></div>
-        </div>
-        <div class="btn-p">Дальше</div>
-      </div>
-    </div>
-    <div class="frame-label">1.3 Слайд — Как работает</div>
-  </div>
-
-  <!-- 1.4 Slide 3 Privacy -->
-  <div style="position:relative;">
-    <div class="frame">
-      <div class="status-bar"><span>9:41</span></div>
-      <div class="sc" style="justify-content:space-between;">
-        <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot a"></div></div>
-        <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:20px;">
-          <div style="display:flex;justify-content:center;"><i class="icon-shield-check" style="font-size:48px;color:var(--aura-light);"></i></div>
-          <div class="title" style="text-align:center;">Твои данные —<br>только у тебя</div>
-          <div class="card" style="display:flex;flex-direction:column;gap:14px;">
-            <div class="body">Aura не продаёт данные и не передаёт третьим лицам. Всё можно скачать или удалить в любой момент.</div>
-            <div class="divider"></div>
-            <div style="display:flex;flex-direction:column;gap:8px;">
-              <div class="check-item"><i class="icon-check"></i>Данные шифруются на устройстве</div>
-              <div class="check-item"><i class="icon-check"></i>Геолокация и контакты не нужны</div>
-              <div class="check-item"><i class="icon-check"></i>Соответствует 152-ФЗ и GDPR</div>
-            </div>
-          </div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:10px;">
-          <div class="btn-p">Настроить Aura</div>
-          <div class="btn-ghost">Быстрый старт (минимум разрешений)</div>
-        </div>
-      </div>
-    </div>
-    <div class="frame-label">1.4 Слайд — Приватность</div>
-  </div>
-
-  <!-- 1.5 Permission Health -->
-  <div style="position:relative;">
-    <div class="frame">
-      <div class="status-bar"><span>9:41</span></div>
-      <div class="sc" style="justify-content:space-between;">
-        <div style="display:flex;flex-direction:column;gap:8px;">
-          <div class="label">1 из 2 разрешений</div>
-          <div class="bar-wrap"><div class="bar-fill" style="width:50%;background:var(--aura);"></div></div>
-        </div>
-        <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:18px;">
-          <div class="title-sm">Данные<br>о здоровье</div>
-          <div class="perm-item">
-            <div class="icon-box" style="background:rgba(76,201,122,0.12);"><i class="icon-heart-pulse" style="color:var(--green);font-size:22px;"></i></div>
-            <div>
-              <div class="perm-name">Apple Health</div>
-              <div class="perm-desc">Пульс, сон, шаги — основа для понимания твоего состояния</div>
-            </div>
-          </div>
-          <div class="card-accent">
-            <div class="label" style="margin-bottom:8px;">Зачем это нужно</div>
-            <div class="body" style="font-size:13px;">Если ЧСС растёт, а активности нет — скорее всего стресс. Aura это замечает до того, как накроет.</div>
-          </div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:10px;">
-          <div class="btn-p">Разрешить доступ</div>
-          <div class="btn-s">Пропустить (добавлю позже)</div>
-        </div>
-      </div>
-    </div>
-    <div class="frame-label">1.5 Разрешение — Health</div>
-  </div>
-
-  <!-- 1.6 Permission Calendar -->
-  <div style="position:relative;">
-    <div class="frame">
-      <div class="status-bar"><span>9:41</span></div>
-      <div class="sc" style="justify-content:space-between;">
-        <div style="display:flex;flex-direction:column;gap:8px;">
-          <div class="label">2 из 2 разрешений</div>
-          <div class="bar-wrap"><div class="bar-fill" style="width:100%;background:var(--aura);"></div></div>
-        </div>
-        <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:18px;">
-          <div class="title-sm">Календарь</div>
-          <div class="perm-item">
-            <div class="icon-box" style="background:rgba(245,165,35,0.12);"><i class="icon-calendar" style="color:var(--amber);font-size:22px;"></i></div>
-            <div>
-              <div class="perm-name">Google Calendar</div>
-              <div class="perm-desc">Видит, что встречи идут подряд без перерывов</div>
-            </div>
-          </div>
-          <div class="card-accent">
-            <div class="label" style="margin-bottom:8px;">Только расписание — не содержимое</div>
-            <div class="body" style="font-size:13px;">Aura видит только время и длительность событий. Названия и детали недоступны.</div>
-          </div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:10px;">
-          <div class="btn-p">Разрешить</div>
-          <div class="btn-s">Пропустить</div>
-        </div>
-      </div>
-    </div>
-    <div class="frame-label">1.6 Разрешение — Календарь</div>
-  </div>
-
-  <!-- 1.7 Quiz -->
-  <div style="position:relative;">
-    <div class="frame">
-      <div class="status-bar"><span>9:41</span></div>
-      <div class="sc" style="justify-content:space-between;">
-        <div class="title-sm">Расскажи<br>о себе</div>
-        <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:20px;">
-          <div style="display:flex;flex-direction:column;gap:8px;">
-            <div class="body" style="font-size:13px;">Что для тебя сейчас важнее всего?</div>
-            <div class="tag sel"><i class="icon-alert-triangle" style="font-size:14px;color:var(--aura);"></i>Справляться со стрессом</div>
-            <div class="tag"><i class="icon-crosshair" style="font-size:14px;"></i>Поддерживать фокус</div>
-            <div class="tag"><i class="icon-zap" style="font-size:14px;"></i>Не терять энергию к вечеру</div>
-            <div class="tag"><i class="icon-moon" style="font-size:14px;"></i>Лучше высыпаться</div>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:8px;">
-            <div class="body" style="font-size:13px;">Когда тебе обычно тяжелее всего?</div>
-            <div class="tag"><i class="icon-sunrise" style="font-size:14px;"></i>С утра раскачиваюсь долго</div>
-            <div class="tag sel"><i class="icon-sun" style="font-size:14px;color:var(--aura);"></i>После обеда падаю</div>
-            <div class="tag"><i class="icon-sunset" style="font-size:14px;"></i>К вечеру накапливается</div>
-          </div>
-        </div>
-        <div class="btn-p">Готово — запустить Aura</div>
-      </div>
-    </div>
-    <div class="frame-label">1.7 Мини-опрос</div>
-  </div>
-
-</div>
-
-<!-- ════════════════════════════════════════════════════ -->
-<!-- MAIN DASHBOARD + SCENARIO 2: NOTIFICATION -->
-<!-- ════════════════════════════════════════════════════ -->
-<div class="section-row">
-  <h2>Главный дашборд + Сценарий 2 — Уведомление</h2>
-  <div class="section-line"></div>
-</div>
-
-<div class="frames" style="margin-bottom:60px;">
-
-  <!-- Dashboard -->
-  <div style="position:relative;">
-    <div class="frame">
-      <div class="status-bar"><span>9:41</span></div>
-      <div class="sc" style="padding-top:8px;">
-        <div class="row-between">
           <div>
-            <div class="caption">Вторник, 14:23</div>
-            <div class="title-sm">Привет</div>
+            <div class="page-title" style="margin-bottom:10px;">Твой личный<br><em>компаньон</em></div>
+            <div style="font-size:14px;color:var(--text3);line-height:1.6;max-width:260px;">Адаптируется под тебя. Замечает, когда нужна пауза. Подсказывает — не командует.</div>
           </div>
-          <div style="width:40px;height:40px;border-radius:50%;background:var(--surface);display:flex;align-items:center;justify-content:center;">
-            <i class="icon-settings-2" style="font-size:18px;color:var(--text3);"></i>
+          <div style="width:100%;display:flex;flex-direction:column;gap:10px;">
+            <button class="btn-primary" onclick="goTo('s-onb1')">Начать →</button>
           </div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:8px 0;">
-          <div class="orb-sm"></div>
-          <div class="caption">Состояние: спокойное</div>
-        </div>
-        <div class="pill-row">
-          <div class="pill"><div class="pl">Энергия</div><div class="pv" style="color:var(--green);">Умеренная</div></div>
-          <div class="pill"><div class="pl">Стресс</div><div class="pv" style="color:var(--aura);">Низкий</div></div>
-          <div class="pill"><div class="pl">Сон</div><div class="pv">7ч 20м</div></div>
-        </div>
-        <div class="card-accent">
-          <div class="label" style="margin-bottom:8px;">Совет сейчас</div>
-          <div class="body" style="font-size:14px;">Следующие 40 минут — пик твоей концентрации. Время для сложной задачи.</div>
-          <div class="row" style="margin-top:14px;gap:8px;">
-            <div class="btn-p" style="padding:10px 16px;font-size:13px;flex:1;">Принять</div>
-            <div class="btn-s" style="padding:10px 16px;font-size:13px;width:auto;">Позже</div>
-          </div>
-        </div>
-        <div class="label">Сегодня</div>
-        <div class="card-sm row-between">
-          <div class="row"><i class="icon-footprints" style="font-size:18px;color:var(--text3);"></i><div><div style="font-size:13px;font-weight:500;">Активность</div><div class="caption">4 200 шагов</div></div></div>
-          <div style="font-size:13px;font-weight:600;color:var(--amber);">56%</div>
-        </div>
-        <div class="card-sm row-between">
-          <div class="row"><i class="icon-pause-circle" style="font-size:18px;color:var(--text3);"></i><div><div style="font-size:13px;font-weight:500;">Перерывы</div><div class="caption">1 из 3 рекомендованных</div></div></div>
-          <div style="font-size:13px;font-weight:600;color:var(--red);">1/3</div>
         </div>
       </div>
-      <div class="bnav">
-        <div class="bnav-btn active"><i class="icon-home"></i>Главная</div>
-        <div class="bnav-btn"><i class="icon-bar-chart-2"></i>Инсайты</div>
-        <div class="bnav-btn"><i class="icon-settings-2"></i>Настройки</div>
-      </div>
-    </div>
-    <div class="frame-label">2.1 Главный дашборд</div>
-  </div>
 
-  <!-- Dashboard + Notification -->
-  <div style="position:relative;">
-    <div class="frame">
-      <div class="status-bar"><span>14:23</span></div>
-      <div class="sc" style="padding-top:8px;gap:12px;">
-        <!-- Notif banner -->
-        <div class="notif-banner">
-          <i class="icon-wind"></i>
-          <div>
-            <div class="caption" style="text-transform:uppercase;letter-spacing:0.08em;">Aura</div>
-            <div style="font-size:14px;font-weight:500;margin-top:2px;">Фокус снижается — самое время для паузы</div>
+      <!-- S1: Slide 1 -->
+      <div class="screen" id="s-onb1">
+        <div class="screen-content" style="justify-content:space-between;">
+          <div class="slide-dots" style="justify-content:flex-start;">
+            <div class="dot active"></div><div class="dot"></div><div class="dot"></div>
           </div>
-        </div>
-        <div class="row-between">
-          <div><div class="caption">Вторник, 14:23</div><div class="title-sm">Привет</div></div>
-          <div style="width:40px;height:40px;border-radius:50%;background:var(--surface);display:flex;align-items:center;justify-content:center;"><i class="icon-settings-2" style="font-size:18px;color:var(--text3);"></i></div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:4px 0;">
-          <div class="orb-sm"></div>
-          <div class="caption">Состояние: внимание</div>
-        </div>
-        <div class="pill-row">
-          <div class="pill"><div class="pl">Энергия</div><div class="pv" style="color:var(--amber);">Снижается</div></div>
-          <div class="pill"><div class="pl">Стресс</div><div class="pv" style="color:var(--amber);">Средний</div></div>
-          <div class="pill"><div class="pl">Без паузы</div><div class="pv" style="color:var(--red);">2ч 47м</div></div>
+          <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:20px;">
+            <div style="font-size:48px;text-align:center;">🔭</div>
+            <div class="page-title" style="text-align:center;">Что умеет<br>Aura</div>
+            <div class="card" style="display:flex;flex-direction:column;gap:12px;">
+              <div style="display:flex;gap:12px;align-items:flex-start;">
+                <span>📊</span>
+                <div>
+                  <div style="font-size:14px;font-weight:500;margin-bottom:3px;">Читает твоё состояние</div>
+                  <div style="font-size:12px;color:var(--text3);">Данные с часов, календаря и твоих заметок</div>
+                </div>
+              </div>
+              <div class="divider"></div>
+              <div style="display:flex;gap:12px;align-items:flex-start;">
+                <span>💡</span>
+                <div>
+                  <div style="font-size:14px;font-weight:500;margin-bottom:3px;">Предлагает вовремя</div>
+                  <div style="font-size:12px;color:var(--text3);">Не «медитируй 10 минут», а «пауза именно сейчас»</div>
+                </div>
+              </div>
+              <div class="divider"></div>
+              <div style="display:flex;gap:12px;align-items:flex-start;">
+                <span>🧠</span>
+                <div>
+                  <div style="font-size:14px;font-weight:500;margin-bottom:3px;">Учится у тебя</div>
+                  <div style="font-size:12px;color:var(--text3);">Каждую неделю становится точнее</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="btn-primary" onclick="goTo('s-onb2')">Дальше</button>
         </div>
       </div>
-      <div class="bnav">
-        <div class="bnav-btn active"><i class="icon-home"></i>Главная</div>
-        <div class="bnav-btn"><i class="icon-bar-chart-2"></i>Инсайты</div>
-        <div class="bnav-btn"><i class="icon-settings-2"></i>Настройки</div>
-      </div>
-    </div>
-    <div class="frame-label">2.2 Дашборд + уведомление</div>
-  </div>
 
-  <!-- Insight Detail -->
-  <div style="position:relative;">
-    <div class="frame">
-      <div class="status-bar"><span>14:23</span></div>
-      <div class="sc">
-        <div class="back"><i class="icon-chevron-left"></i>Назад</div>
-        <div class="title-sm">Что заметила<br>Aura</div>
-        <div class="card" style="display:flex;flex-direction:column;gap:14px;">
-          <div class="label">На основе данных</div>
+      <!-- S1: Slide 2 -->
+      <div class="screen" id="s-onb2">
+        <div class="screen-content" style="justify-content:space-between;">
+          <div class="slide-dots" style="justify-content:flex-start;">
+            <div class="dot"></div><div class="dot active"></div><div class="dot"></div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:20px;">
+            <div style="font-size:48px;text-align:center;">⚡</div>
+            <div class="page-title" style="text-align:center;">Как это<br>работает</div>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div class="card-sm" style="display:flex;align-items:center;gap:14px;">
+                <div style="width:36px;height:36px;border-radius:12px;background:rgba(139,124,246,0.15);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">👀</div>
+                <div style="font-size:13px;color:var(--text2);">Aura замечает паттерны в твоём дне</div>
+              </div>
+              <div style="text-align:center;font-size:18px;color:var(--text3);">↓</div>
+              <div class="card-sm" style="display:flex;align-items:center;gap:14px;">
+                <div style="width:36px;height:36px;border-radius:12px;background:rgba(139,124,246,0.15);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🔍</div>
+                <div style="font-size:13px;color:var(--text2);">Анализирует — что у тебя уникально</div>
+              </div>
+              <div style="text-align:center;font-size:18px;color:var(--text3);">↓</div>
+              <div class="card-sm" style="display:flex;align-items:center;gap:14px;">
+                <div style="width:36px;height:36px;border-radius:12px;background:rgba(139,124,246,0.15);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">💬</div>
+                <div style="font-size:13px;color:var(--text2);">Предлагает — именно тебе, именно сейчас</div>
+              </div>
+            </div>
+          </div>
+          <button class="btn-primary" onclick="goTo('s-onb3')">Дальше</button>
+        </div>
+      </div>
+
+      <!-- S1: Slide 3 — Privacy -->
+      <div class="screen" id="s-onb3">
+        <div class="screen-content" style="justify-content:space-between;">
+          <div class="slide-dots" style="justify-content:flex-start;">
+            <div class="dot"></div><div class="dot"></div><div class="dot active"></div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:20px;">
+            <div style="font-size:48px;text-align:center;">🔒</div>
+            <div class="page-title" style="text-align:center;">Твои данные —<br>только у тебя</div>
+            <div class="card">
+              <div style="font-size:14px;color:var(--text2);line-height:1.7;">
+                Aura не продаёт твои данные. Не передаёт третьим лицам. Ты в любой момент можешь скачать или полностью удалить всё.
+              </div>
+              <div class="divider" style="margin:14px 0;"></div>
+              <div style="display:flex;flex-direction:column;gap:8px;">
+                <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--green);">✓ Данные шифруются на устройстве</div>
+                <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--green);">✓ Геолокация и контакты не нужны</div>
+                <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--green);">✓ Соответствует 152-ФЗ и GDPR</div>
+              </div>
+            </div>
+          </div>
           <div style="display:flex;flex-direction:column;gap:10px;">
-            <div class="row-between"><span class="caption" style="font-size:13px;">ЧСС за последний час</span><span style="font-size:13px;font-weight:600;color:var(--amber);">+14%</span></div>
-            <div class="bar-wrap"><div class="bar-fill" style="width:74%;background:var(--amber);"></div></div>
-            <div class="row-between"><span class="caption" style="font-size:13px;">Без движения</span><span style="font-size:13px;font-weight:600;color:var(--red);">2ч 47м</span></div>
-            <div class="bar-wrap"><div class="bar-fill" style="width:88%;background:var(--red);"></div></div>
+            <button class="btn-primary" onclick="goTo('s-perm1')">Настроить Aura</button>
+            <button class="btn-ghost" onclick="goTo('s-perm1')">Быстрый старт (минимум разрешений)</button>
           </div>
-        </div>
-        <div class="card-accent">
-          <div class="label" style="margin-bottom:8px;">Что это значит</div>
-          <div class="body" style="font-size:13px;">Признаки когнитивной усталости. Короткая пауза восстановит фокус на 25–35%. Лучше — сейчас.</div>
-        </div>
-        <div class="label">Что попробовать</div>
-        <div class="action-grid">
-          <div class="action-opt"><i class="icon-wind"></i><div class="ao-l">5 мин дыхание</div></div>
-          <div class="action-opt"><i class="icon-footprints"></i><div class="ao-l">Прогуляться</div></div>
-          <div class="action-opt"><i class="icon-monitor-off"></i><div class="ao-l">Убрать экран</div></div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:8px;">
-          <div class="btn-s">Напомни через 20 минут</div>
-          <div class="btn-ghost">Всё в порядке, спасибо</div>
         </div>
       </div>
-    </div>
-    <div class="frame-label">2.3 Детальный инсайт</div>
-  </div>
 
-  <!-- Timer -->
-  <div style="position:relative;">
-    <div class="frame">
-      <div class="status-bar"><span>14:24</span></div>
-      <div class="sc" style="justify-content:space-between;align-items:center;">
-        <div class="back" style="align-self:flex-start;"><i class="icon-chevron-left"></i>Назад</div>
-        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;width:100%;">
-          <div class="title-sm" style="text-align:center;">Дыхательная<br>практика</div>
-          <div class="timer-wrap">
-            <svg viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="80" cy="80" r="70" stroke="#2C2B44" stroke-width="8"/>
-              <circle cx="80" cy="80" r="70" stroke="#8B7CF6" stroke-width="8" stroke-dasharray="439.82" stroke-dashoffset="110"/>
-            </svg>
-            <div class="timer-num">4:15</div>
-          </div>
-          <div class="card" style="text-align:center;width:100%;max-width:280px;">
-            <div style="font-size:16px;font-weight:500;margin-bottom:8px;">Выдох медленно...</div>
-            <div class="caption">Дыши вместе с ритмом орба</div>
-          </div>
-          <div class="btn-p" style="max-width:280px;">Завершить практику</div>
-        </div>
-      </div>
-    </div>
-    <div class="frame-label">2.4 Таймер практики</div>
-  </div>
-
-  <!-- Feedback -->
-  <div style="position:relative;">
-    <div class="frame">
-      <div class="status-bar"><span>14:29</span></div>
-      <div class="sc" style="justify-content:space-between;">
-        <div style="text-align:center;padding:20px 0 10px;">
-          <div style="display:flex;justify-content:center;margin-bottom:12px;"><i class="icon-check-circle-2" style="font-size:48px;color:var(--green);"></i></div>
-          <div class="title-sm">Практика<br>завершена</div>
-        </div>
-        <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:24px;">
+      <!-- S1: Permission 1 — Health -->
+      <div class="screen" id="s-perm1">
+        <div class="screen-content" style="justify-content:space-between;">
           <div>
-            <div style="font-size:14px;font-weight:500;text-align:center;margin-bottom:16px;">Как ты себя чувствуешь?</div>
-            <div class="emoji-row">
-              <div class="emoji-opt sel">
-                <i class="icon-smile" style="font-size:28px;color:var(--green);"></i>
-                <div class="el">Лучше</div>
+            <div class="section-label" style="margin-bottom:8px;">1 из 2 разрешений</div>
+            <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:50%"></div></div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:20px;">
+            <div class="page-title">Данные<br>о здоровье</div>
+            <div class="perm-item">
+              <div class="perm-icon" style="background:rgba(76,201,122,0.15);">💚</div>
+              <div class="perm-info">
+                <div class="perm-name">Apple Health</div>
+                <div class="perm-desc">Пульс, сон, шаги — основа для понимания твоего состояния. Без этого Aura работает вслепую.</div>
               </div>
-              <div class="emoji-opt">
-                <i class="icon-meh" style="font-size:28px;color:var(--text3);"></i>
-                <div class="el">Так же</div>
+            </div>
+            <div class="insight-card">
+              <div class="insight-title">Зачем это нужно</div>
+              <div class="insight-text" style="font-size:14px;">Если ЧСС растёт, а активности нет — скорее всего стресс. Aura это замечает и предлагает паузу до того, как накроет.</div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <button class="btn-primary" onclick="goTo('s-perm2')">Разрешить доступ</button>
+            <button class="btn-secondary" onclick="goTo('s-perm2')">Пропустить (добавлю позже)</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- S1: Permission 2 — Calendar -->
+      <div class="screen" id="s-perm2">
+        <div class="screen-content" style="justify-content:space-between;">
+          <div>
+            <div class="section-label" style="margin-bottom:8px;">2 из 2 разрешений</div>
+            <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:100%"></div></div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:20px;">
+            <div class="page-title">Календарь</div>
+            <div class="perm-item">
+              <div class="perm-icon" style="background:rgba(245,165,35,0.15);">📅</div>
+              <div class="perm-info">
+                <div class="perm-name">Google Calendar</div>
+                <div class="perm-desc">Видит, что у тебя встречи подряд и нет перерывов. Может подсказать паузу между ними.</div>
               </div>
-              <div class="emoji-opt">
-                <i class="icon-frown" style="font-size:28px;color:var(--text3);"></i>
-                <div class="el">Хуже</div>
+            </div>
+            <div class="insight-card">
+              <div class="insight-title">Только расписание — не содержимое</div>
+              <div class="insight-text" style="font-size:14px;">Aura видит только время и длительность событий. Названия встреч и детали недоступны.</div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <button class="btn-primary" onclick="goTo('s-quiz')">Разрешить</button>
+            <button class="btn-secondary" onclick="goTo('s-quiz')">Пропустить</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- S1: Mini quiz -->
+      <div class="screen" id="s-quiz">
+        <div class="screen-content" style="justify-content:space-between;">
+          <div class="page-title">Расскажи<br>о себе</div>
+          <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:20px;">
+            <div>
+              <div style="font-size:14px;color:var(--text2);margin-bottom:12px;">Что для тебя сейчас важнее всего?</div>
+              <div style="display:flex;flex-direction:column;gap:8px;" id="quiz-goals">
+                <div class="tag" onclick="toggleTag(this)">😤 Справляться со стрессом</div>
+                <div class="tag" onclick="toggleTag(this)">🎯 Поддерживать фокус</div>
+                <div class="tag" onclick="toggleTag(this)">⚡ Не терять энергию к вечеру</div>
+                <div class="tag" onclick="toggleTag(this)">😴 Лучше высыпаться</div>
+              </div>
+            </div>
+            <div>
+              <div style="font-size:14px;color:var(--text2);margin-bottom:12px;">Когда тебе обычно тяжелее всего?</div>
+              <div style="display:flex;flex-direction:column;gap:8px;">
+                <div class="tag" onclick="toggleTag(this)">🌅 С утра раскачиваюсь долго</div>
+                <div class="tag" onclick="toggleTag(this)">🍽 После обеда падаю</div>
+                <div class="tag" onclick="toggleTag(this)">🌙 К вечеру накапливается</div>
               </div>
             </div>
           </div>
+          <button class="btn-primary" onclick="goTo('s-dashboard')">Готово — запустить Aura</button>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════ -->
+      <!-- MAIN DASHBOARD -->
+      <!-- ══════════════════════════════════ -->
+      <div class="screen" id="s-dashboard">
+        <div class="phone-status" style="padding-top:8px;position:relative;z-index:1;"></div>
+        <!-- Notification banner -->
+        <div class="notif-banner" id="notif-banner" onclick="handleNotifTap()" style="display:none;">
+          <div class="notif-icon">🌬</div>
           <div>
-            <div class="caption" style="text-align:center;margin-bottom:10px;">Что помогло? (необязательно)</div>
-            <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
-              <div class="rating-tag sel">Дыхание</div>
-              <div class="rating-tag">Пауза</div>
-              <div class="rating-tag">Тишина</div>
-              <div class="rating-tag">Смена позы</div>
+            <div class="notif-app">Aura</div>
+            <div class="notif-msg">Фокус снижается — самое время для паузы</div>
+          </div>
+        </div>
+        <div class="screen-content" style="padding-top:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-size:12px;color:var(--text3);">Вторник, 14:23</div>
+              <div class="page-title" style="font-size:22px;">Привет 👋</div>
+            </div>
+            <button onclick="goTo('s-settings')" style="width:40px;height:40px;border-radius:50%;background:var(--surface);border:none;font-size:20px;cursor:pointer;">⚙️</button>
+          </div>
+          <div class="orb-wrap" style="padding:8px 0;">
+            <div class="orb" style="width:100px;height:100px;"></div>
+            <div class="orb-label">Состояние: спокойное</div>
+          </div>
+          <div class="status-row">
+            <div class="status-pill">
+              <span class="s-label">Энергия</span>
+              <span class="s-val s-green">Умеренная</span>
+            </div>
+            <div class="status-pill">
+              <span class="s-label">Стресс</span>
+              <span class="s-val s-aura">Низкий</span>
+            </div>
+            <div class="status-pill">
+              <span class="s-label">Сон</span>
+              <span class="s-val" style="color:var(--text);">7ч 20м</span>
             </div>
           </div>
-          <div class="card-sm" style="text-align:center;">
-            <div class="caption">Твой ответ помогает Aura лучше понимать тебя</div>
-          </div>
-        </div>
-        <div class="btn-p">Готово</div>
-      </div>
-    </div>
-    <div class="frame-label">2.5 Обратная связь</div>
-  </div>
-
-</div>
-
-<!-- ════════════════════════════════════════════════════ -->
-<!-- SCENARIO 3: WEEKLY INSIGHTS + SETTINGS -->
-<!-- ════════════════════════════════════════════════════ -->
-<div class="section-row">
-  <h2>Сценарий 3 — Инсайты недели + Настройки</h2>
-  <div class="section-line"></div>
-</div>
-
-<div class="frames" style="margin-bottom:60px;">
-
-  <!-- Weekly Insights -->
-  <div style="position:relative;">
-    <div class="frame" style="min-height:860px;">
-      <div class="status-bar"><span>9:41</span></div>
-      <div class="sc" style="padding-bottom:100px;">
-        <div class="row-between">
-          <div>
-            <div class="label" style="margin-bottom:4px;">Неделя 1–7 апреля</div>
-            <div class="title-sm">Что узнала<br>Aura о тебе</div>
-          </div>
-          <div class="stat-box"><div class="stat-num">–12%</div><div class="stat-l">Стресс-индекс</div></div>
-        </div>
-        <div class="label">Паттерны недели</div>
-        <div class="weekly-card">
-          <div class="row" style="gap:10px;">
-            <i class="icon-sun" style="font-size:18px;color:var(--amber);flex-shrink:0;"></i>
-            <div class="weekly-pattern">Ты лучше концентрируешься до 12:00</div>
-          </div>
-          <div class="caption">Среднее время фокуса утром — 47 мин. После 14:00 — 18 мин.</div>
-          <div class="caption" style="color:var(--text2);">Это про тебя?</div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;">
-            <div class="rating-tag sel">Точно да</div>
-            <div class="rating-tag">Не совсем</div>
-            <div class="rating-tag">Не про меня</div>
-          </div>
-        </div>
-        <div class="weekly-card">
-          <div class="row" style="gap:10px;">
-            <i class="icon-calendar" style="font-size:18px;color:var(--aura-light);flex-shrink:0;"></i>
-            <div class="weekly-pattern">Стресс растёт в среду вечером</div>
-          </div>
-          <div class="caption">В среду после 18:00 ЧСС стабильно выше нормы на 8–15%.</div>
-          <div class="caption" style="color:var(--text2);">Это про тебя?</div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;">
-            <div class="rating-tag">Точно да</div>
-            <div class="rating-tag sel">Не совсем</div>
-            <div class="rating-tag">Не про меня</div>
-          </div>
-        </div>
-        <div class="weekly-card">
-          <div class="row" style="gap:10px;">
-            <i class="icon-wind" style="font-size:18px;color:var(--green);flex-shrink:0;"></i>
-            <div class="weekly-pattern">Дыхательные практики помогают тебе</div>
-          </div>
-          <div class="caption">4 из 5 раз ЧСС снизился в течение 10 минут.</div>
-          <div class="caption" style="color:var(--text2);">Это про тебя?</div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;">
-            <div class="rating-tag sel">Точно да</div>
-            <div class="rating-tag">Не совсем</div>
-            <div class="rating-tag">Не про меня</div>
-          </div>
-        </div>
-        <div class="label">Что сработало</div>
-        <div class="card-sm row-between">
-          <div class="row"><i class="icon-wind" style="font-size:16px;color:var(--text3);"></i><div style="font-size:13px;font-weight:500;">Дыхательная практика</div></div>
-          <span style="font-size:13px;font-weight:600;color:var(--green);">4/5</span>
-        </div>
-        <div class="card-sm row-between">
-          <div class="row"><i class="icon-footprints" style="font-size:16px;color:var(--text3);"></i><div style="font-size:13px;font-weight:500;">Прогулка</div></div>
-          <span style="font-size:13px;font-weight:600;color:var(--amber);">2/3</span>
-        </div>
-        <div class="card-accent" style="text-align:center;">
-          <div class="caption">Спасибо — Aura стала чуть лучше понимать тебя. До следующей недели</div>
-        </div>
-      </div>
-      <div class="bnav">
-        <div class="bnav-btn"><i class="icon-home"></i>Главная</div>
-        <div class="bnav-btn active"><i class="icon-bar-chart-2"></i>Инсайты</div>
-        <div class="bnav-btn"><i class="icon-settings-2"></i>Настройки</div>
-      </div>
-    </div>
-    <div class="frame-label">3.1 Инсайты недели</div>
-  </div>
-
-  <!-- Settings -->
-  <div style="position:relative;">
-    <div class="frame" style="min-height:860px;">
-      <div class="status-bar"><span>9:41</span></div>
-      <div class="sc" style="padding-bottom:100px;">
-        <div class="back"><i class="icon-chevron-left"></i>Назад</div>
-        <div class="title-sm">Мои данные<br>и настройки</div>
-        <div class="card" style="display:flex;flex-direction:column;gap:14px;">
-          <div class="label">Уведомления</div>
-          <div style="display:flex;flex-direction:column;gap:6px;">
-            <div class="caption">Частота</div>
-            <div style="display:flex;gap:6px;">
-              <div class="rating-tag">Редко</div>
-              <div class="rating-tag sel">Умеренно</div>
-              <div class="rating-tag">Часто</div>
+          <div class="insight-card">
+            <div class="insight-title">💡 Совет сейчас</div>
+            <div class="insight-text">Следующие 40 минут — пик твоей концентрации. Самое время для сложной задачи.</div>
+            <div style="display:flex;gap:8px;margin-top:14px;">
+              <button class="btn-primary" style="font-size:13px;padding:10px 16px;" onclick="showNotif()">Принять</button>
+              <button class="btn-secondary" style="font-size:13px;padding:10px 16px;flex:0.6;">Позже</button>
             </div>
           </div>
-          <div class="setting-row">
-            <div><div style="font-size:14px;font-weight:500;">Тихие часы</div><div class="caption">22:00 — 08:00</div></div>
-            <div class="toggle on"></div>
+          <div class="section-label">Сегодня</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div class="card-sm" style="display:flex;justify-content:space-between;align-items:center;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span>🚶</span>
+                <div>
+                  <div style="font-size:14px;">Активность</div>
+                  <div style="font-size:12px;color:var(--text3);">4 200 шагов</div>
+                </div>
+              </div>
+              <div style="font-size:13px;color:var(--amber);">56%</div>
+            </div>
+            <div class="card-sm" style="display:flex;justify-content:space-between;align-items:center;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span>⏸</span>
+                <div>
+                  <div style="font-size:14px;">Перерывы</div>
+                  <div style="font-size:12px;color:var(--text3);">1 из 3 рекомендованных</div>
+                </div>
+              </div>
+              <div style="font-size:13px;color:var(--red);">1/3</div>
+            </div>
           </div>
         </div>
-        <div class="card" style="display:flex;flex-direction:column;gap:10px;">
-          <div class="label">Источники данных</div>
-          <div class="perm-item">
-            <div class="icon-box" style="background:rgba(76,201,122,0.1);"><i class="icon-heart-pulse" style="color:var(--green);font-size:18px;"></i></div>
-            <div style="flex:1;"><div class="perm-name">Apple Health</div></div>
-            <div class="toggle on"></div>
-          </div>
-          <div class="perm-item">
-            <div class="icon-box" style="background:rgba(245,165,35,0.1);"><i class="icon-calendar" style="color:var(--amber);font-size:18px;"></i></div>
-            <div style="flex:1;"><div class="perm-name">Календарь</div></div>
-            <div class="toggle on"></div>
-          </div>
-        </div>
-        <div class="card" style="display:flex;flex-direction:column;gap:4px;">
-          <div class="label" style="margin-bottom:8px;">Типы советов</div>
-          <div class="setting-row">
-            <div class="row" style="gap:10px;"><i class="icon-wind" style="font-size:16px;color:var(--text3);"></i><div style="font-size:14px;">Дыхательные практики</div></div>
-            <div class="toggle on"></div>
-          </div>
-          <div class="setting-row">
-            <div class="row" style="gap:10px;"><i class="icon-footprints" style="font-size:16px;color:var(--text3);"></i><div style="font-size:14px;">Движение</div></div>
-            <div class="toggle on"></div>
-          </div>
-          <div class="setting-row">
-            <div class="row" style="gap:10px;"><i class="icon-crosshair" style="font-size:16px;color:var(--text3);"></i><div style="font-size:14px;">Фокус-режим</div></div>
-            <div class="toggle on"></div>
-          </div>
-          <div class="setting-row">
-            <div class="row" style="gap:10px;"><i class="icon-apple" style="font-size:16px;color:var(--text3);"></i><div style="font-size:14px;">Питание</div></div>
-            <div class="toggle off"></div>
-          </div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:8px;padding-bottom:20px;">
-          <div class="btn-s" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;"><i class="icon-download" style="font-size:16px;"></i>Скачать мои данные</div>
-          <div class="btn-s" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;color:var(--red);border-color:rgba(240,96,96,0.25);"><i class="icon-trash-2" style="font-size:16px;color:var(--red);"></i>Удалить аккаунт и данные</div>
+        <div class="bottom-nav">
+          <button class="nav-btn active"><span class="icon">🏠</span>Главная</button>
+          <button class="nav-btn" onclick="goTo('s-insights')"><span class="icon">📈</span>Инсайты</button>
+          <button class="nav-btn" onclick="goTo('s-settings')"><span class="icon">⚙️</span>Настройки</button>
         </div>
       </div>
-      <div class="bnav">
-        <div class="bnav-btn"><i class="icon-home"></i>Главная</div>
-        <div class="bnav-btn"><i class="icon-bar-chart-2"></i>Инсайты</div>
-        <div class="bnav-btn active"><i class="icon-settings-2"></i>Настройки</div>
+
+      <!-- ══════════════════════════════════ -->
+      <!-- SCENARIO 2: NOTIFICATION -->
+      <!-- ══════════════════════════════════ -->
+
+      <!-- S2: Insight detail -->
+      <div class="screen" id="s-insight-detail">
+        <div class="screen-content">
+          <button class="back-btn" onclick="goBack()">← Назад</button>
+          <div class="page-title" style="font-size:22px;">Что заметила<br>Aura</div>
+          <div class="card" style="display:flex;flex-direction:column;gap:12px;">
+            <div class="section-label">На основе данных</div>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="font-size:13px;color:var(--text2);">ЧСС за последний час</span>
+                <span style="font-size:13px;font-weight:600;color:var(--amber);">+14%</span>
+              </div>
+              <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:74%;background:var(--amber);"></div></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="font-size:13px;color:var(--text2);">Без движения</span>
+                <span style="font-size:13px;font-weight:600;color:var(--red);">2ч 47м</span>
+              </div>
+              <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:88%;background:var(--red);"></div></div>
+            </div>
+          </div>
+          <div class="insight-card">
+            <div class="insight-title">Что это значит</div>
+            <div class="insight-text">Признаки когнитивной усталости. Короткая пауза восстановит фокус на 25–35%. Лучше — сейчас, пока не накрыло.</div>
+          </div>
+          <div class="section-label">Что попробовать</div>
+          <div class="action-grid">
+            <div class="action-opt" onclick="goTo('s-timer')">
+              <div class="ao-icon">🌬</div>
+              <div class="ao-label">5 мин дыхание</div>
+            </div>
+            <div class="action-opt" onclick="goTo('s-feedback')">
+              <div class="ao-icon">🚶</div>
+              <div class="ao-label">Прогуляться</div>
+            </div>
+            <div class="action-opt" onclick="goTo('s-feedback')">
+              <div class="ao-icon">📵</div>
+              <div class="ao-label">Убрать экран</div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <button class="btn-secondary" onclick="goTo('s-dashboard')">Напомни через 20 минут</button>
+            <button class="btn-ghost" onclick="goTo('s-dashboard')">Всё в порядке, спасибо</button>
+          </div>
+        </div>
       </div>
+
+      <!-- S2: Timer -->
+      <div class="screen" id="s-timer">
+        <div class="screen-content" style="justify-content:space-between;align-items:center;">
+          <button class="back-btn" onclick="goBack()" style="align-self:flex-start;">← Назад</button>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;">
+            <div class="page-title" style="text-align:center;">Дыхательная<br>практика</div>
+            <div class="timer-circle" id="timer-circle">
+              <svg viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="80" cy="80" r="70" stroke="#2C2B44" stroke-width="8"/>
+                <circle cx="80" cy="80" r="70" stroke="#8B7CF6" stroke-width="8"
+                  stroke-dasharray="439.82" stroke-dashoffset="0"
+                  id="timer-progress" style="transition:stroke-dashoffset 1s linear;"/>
+              </svg>
+              <div class="timer-num" id="timer-num">5:00</div>
+            </div>
+            <div class="card" style="text-align:center;width:100%;max-width:280px;">
+              <div style="font-size:18px;margin-bottom:8px;" id="breathe-phase">Вдох медленно...</div>
+              <div style="font-size:13px;color:var(--text3);">Дыши вместе с ритмом орба выше</div>
+            </div>
+            <button class="btn-primary" style="max-width:280px;" onclick="goTo('s-feedback')">Завершить практику</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- S2: Feedback -->
+      <div class="screen" id="s-feedback">
+        <div class="screen-content" style="justify-content:space-between;">
+          <div style="text-align:center;padding:20px 0 10px;">
+            <div style="font-size:40px;margin-bottom:12px;">✅</div>
+            <div class="page-title" style="font-size:22px;">Практика<br>завершена</div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:24px;">
+            <div>
+              <div style="font-size:15px;font-weight:500;text-align:center;margin-bottom:16px;">Как ты себя чувствуешь?</div>
+              <div class="emoji-row">
+                <button class="emoji-btn" onclick="selectEmoji(this)">
+                  <span class="em">😌</span>
+                  <span class="em-label">Лучше</span>
+                </button>
+                <button class="emoji-btn" onclick="selectEmoji(this)">
+                  <span class="em">😐</span>
+                  <span class="em-label">Так же</span>
+                </button>
+                <button class="emoji-btn" onclick="selectEmoji(this)">
+                  <span class="em">😣</span>
+                  <span class="em-label">Хуже</span>
+                </button>
+              </div>
+            </div>
+            <div>
+              <div style="font-size:13px;color:var(--text3);margin-bottom:10px;text-align:center;">Что помогло? (необязательно)</div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+                <button class="rating-tag" onclick="toggleRating(this)">Дыхание</button>
+                <button class="rating-tag" onclick="toggleRating(this)">Пауза</button>
+                <button class="rating-tag" onclick="toggleRating(this)">Тишина</button>
+                <button class="rating-tag" onclick="toggleRating(this)">Смена позы</button>
+              </div>
+            </div>
+            <div class="card-sm" style="text-align:center;">
+              <div style="font-size:12px;color:var(--text3);line-height:1.6;">Твой ответ помогает Aura лучше понимать тебя 💜</div>
+            </div>
+          </div>
+          <button class="btn-primary" onclick="goTo('s-dashboard')">Готово</button>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════ -->
+      <!-- SCENARIO 3: WEEKLY INSIGHTS -->
+      <!-- ══════════════════════════════════ -->
+      <div class="screen" id="s-insights">
+        <div class="screen-content">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+            <div>
+              <div class="section-label" style="margin-bottom:4px;">Неделя 1–7 апреля</div>
+              <div class="page-title" style="font-size:22px;">Что узнала<br>Aura о тебе</div>
+            </div>
+            <div style="background:var(--aura-glow);border:1px solid var(--aura);border-radius:12px;padding:8px 12px;text-align:center;">
+              <div style="font-size:18px;font-weight:700;color:var(--aura);">–12%</div>
+              <div style="font-size:10px;color:var(--text3);">Стресс-индекс</div>
+            </div>
+          </div>
+
+          <div class="section-label">Паттерны недели</div>
+
+          <div class="weekly-card">
+            <div class="weekly-header">
+              <div class="weekly-pattern">🌅 Ты лучше концентрируешься до 12:00</div>
+            </div>
+            <div style="font-size:12px;color:var(--text3);line-height:1.5;">Среднее время фокуса утром — 47 мин подряд. После 14:00 — 18 мин.</div>
+            <div style="font-size:13px;color:var(--text2);">Это про тебя?</div>
+            <div class="rating-row">
+              <button class="rating-tag" onclick="toggleRating(this)">Точно да</button>
+              <button class="rating-tag" onclick="toggleRating(this)">Не совсем</button>
+              <button class="rating-tag" onclick="toggleRating(this)">Не про меня</button>
+            </div>
+          </div>
+
+          <div class="weekly-card">
+            <div class="weekly-header">
+              <div class="weekly-pattern">📅 Стресс растёт в среду вечером</div>
+            </div>
+            <div style="font-size:12px;color:var(--text3);line-height:1.5;">В среду после 18:00 ЧСС стабильно выше нормы на 8–15%. Связано с нагрузкой в середине недели.</div>
+            <div style="font-size:13px;color:var(--text2);">Это про тебя?</div>
+            <div class="rating-row">
+              <button class="rating-tag" onclick="toggleRating(this)">Точно да</button>
+              <button class="rating-tag" onclick="toggleRating(this)">Не совсем</button>
+              <button class="rating-tag" onclick="toggleRating(this)">Не про меня</button>
+            </div>
+          </div>
+
+          <div class="weekly-card">
+            <div class="weekly-header">
+              <div class="weekly-pattern">🌬 Дыхательные практики помогают тебе</div>
+            </div>
+            <div style="font-size:12px;color:var(--text3);line-height:1.5;">4 из 5 раз после дыхания ЧСС снизилась в течение 10 минут. Самая эффективная практика для тебя.</div>
+            <div style="font-size:13px;color:var(--text2);">Это про тебя?</div>
+            <div class="rating-row">
+              <button class="rating-tag" onclick="toggleRating(this)">Точно да</button>
+              <button class="rating-tag" onclick="toggleRating(this)">Не совсем</button>
+              <button class="rating-tag" onclick="toggleRating(this)">Не про меня</button>
+            </div>
+          </div>
+
+          <div class="section-label">Что сработало на неделе</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div class="card-sm" style="display:flex;justify-content:space-between;align-items:center;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span>🌬</span>
+                <div style="font-size:14px;">Дыхательная практика</div>
+              </div>
+              <span style="font-size:13px;color:var(--green);">4/5</span>
+            </div>
+            <div class="card-sm" style="display:flex;justify-content:space-between;align-items:center;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span>🚶</span>
+                <div style="font-size:14px;">Прогулка</div>
+              </div>
+              <span style="font-size:13px;color:var(--amber);">2/3</span>
+            </div>
+          </div>
+
+          <div class="card" style="text-align:center;background:var(--aura-glow);border-color:var(--aura);">
+            <div style="font-size:14px;color:var(--text2);line-height:1.6;">Спасибо — Aura стала чуть лучше понимать тебя. До следующей недели 💜</div>
+          </div>
+          <div style="height:20px;"></div>
+        </div>
+        <div class="bottom-nav">
+          <button class="nav-btn" onclick="goTo('s-dashboard')"><span class="icon">🏠</span>Главная</button>
+          <button class="nav-btn active"><span class="icon">📈</span>Инсайты</button>
+          <button class="nav-btn" onclick="goTo('s-settings')"><span class="icon">⚙️</span>Настройки</button>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="screen" id="s-settings">
+        <div class="screen-content">
+          <button class="back-btn" onclick="goBack()">← Назад</button>
+          <div class="page-title" style="font-size:22px;">Мои данные<br>и настройки</div>
+
+          <div class="card">
+            <div class="section-label" style="margin-bottom:14px;">Уведомления</div>
+            <div style="margin-bottom:12px;">
+              <div style="font-size:13px;color:var(--text2);margin-bottom:8px;">Частота</div>
+              <div style="display:flex;gap:6px;">
+                <button class="rating-tag" onclick="toggleRating(this)">Редко</button>
+                <button class="rating-tag sel" onclick="toggleRating(this)">Умеренно</button>
+                <button class="rating-tag" onclick="toggleRating(this)">Часто</button>
+              </div>
+            </div>
+            <div class="setting-row">
+              <div class="setting-info">
+                <div class="s-name">Тихие часы</div>
+                <div class="s-sub">22:00 — 08:00</div>
+              </div>
+              <button class="toggle on" onclick="this.classList.toggle('on')"></button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="section-label" style="margin-bottom:14px;">Источники данных</div>
+            <div class="perm-item" style="margin-bottom:8px;">
+              <div class="perm-icon" style="background:rgba(76,201,122,0.12);font-size:16px;">💚</div>
+              <div class="perm-info">
+                <div class="perm-name" style="font-size:14px;">Apple Health</div>
+              </div>
+              <button class="toggle on" onclick="this.classList.toggle('on')"></button>
+            </div>
+            <div class="perm-item">
+              <div class="perm-icon" style="background:rgba(245,165,35,0.12);font-size:16px;">📅</div>
+              <div class="perm-info">
+                <div class="perm-name" style="font-size:14px;">Календарь</div>
+              </div>
+              <button class="toggle on" onclick="this.classList.toggle('on')"></button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="section-label" style="margin-bottom:14px;">Типы советов</div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div class="setting-row" style="padding:8px 0;">
+                <div class="s-name" style="font-size:14px;">🌬 Дыхательные практики</div>
+                <button class="toggle on" onclick="this.classList.toggle('on')"></button>
+              </div>
+              <div class="setting-row" style="padding:8px 0;">
+                <div class="s-name" style="font-size:14px;">🚶 Движение</div>
+                <button class="toggle on" onclick="this.classList.toggle('on')"></button>
+              </div>
+              <div class="setting-row" style="padding:8px 0;">
+                <div class="s-name" style="font-size:14px;">🎯 Фокус-режим</div>
+                <button class="toggle on" onclick="this.classList.toggle('on')"></button>
+              </div>
+              <div class="setting-row" style="padding:8px 0;border-bottom:none;">
+                <div class="s-name" style="font-size:14px;">🍎 Питание</div>
+                <button class="toggle" onclick="this.classList.toggle('on')"></button>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px;padding-bottom:16px;">
+            <button class="btn-secondary" style="font-size:13px;">⬇ Скачать мои данные</button>
+            <button class="btn-secondary" style="font-size:13px;color:var(--red);border-color:rgba(240,96,96,0.3);">🗑 Удалить аккаунт и все данные</button>
+          </div>
+        </div>
+        <div class="bottom-nav">
+          <button class="nav-btn" onclick="goTo('s-dashboard')"><span class="icon">🏠</span>Главная</button>
+          <button class="nav-btn" onclick="goTo('s-insights')"><span class="icon">📈</span>Инсайты</button>
+          <button class="nav-btn active"><span class="icon">⚙️</span>Настройки</button>
+        </div>
+      </div>
+
+    </div><!-- /phone-inner -->
+  </div><!-- /phone -->
+
+  <!-- SIDEBAR FLOW INFO -->
+  <div class="flow-info" id="flow-sidebar">
+    <h3>Сценарий 1<br>Онбординг</h3>
+    <div id="flow-steps"></div>
+    <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--surface2);">
+      <div style="font-size:11px;color:var(--text3);line-height:1.6;">Нажми на любой шаг чтобы перейти на экран</div>
     </div>
-    <div class="frame-label">3.2 Настройки</div>
   </div>
 
-</div>
+</div><!-- /phone-wrap -->
 
+<script>
+const scenarios = {
+  onboarding: {
+    title: "Сценарий 1\nОнбординг",
+    steps: [
+      { id: 's-welcome', label: 'Экран приветствия' },
+      { id: 's-onb1', label: 'Слайд 1 — Что умеет Aura' },
+      { id: 's-onb2', label: 'Слайд 2 — Как работает' },
+      { id: 's-onb3', label: 'Слайд 3 — Приватность' },
+      { id: 's-perm1', label: 'Разрешение: Health' },
+      { id: 's-perm2', label: 'Разрешение: Календарь' },
+      { id: 's-quiz', label: 'Мини-опрос' },
+      { id: 's-dashboard', label: 'Главный дашборд' },
+    ]
+  },
+  notification: {
+    title: "Сценарий 2\nУведомление",
+    steps: [
+      { id: 's-dashboard', label: 'Дашборд (уведомление)' },
+      { id: 's-insight-detail', label: 'Детальный инсайт' },
+      { id: 's-timer', label: 'Практика + таймер' },
+      { id: 's-feedback', label: 'Обратная связь' },
+      { id: 's-dashboard', label: 'Возврат на главную' },
+    ]
+  },
+  insights: {
+    title: "Сценарий 3\nИнсайты",
+    steps: [
+      { id: 's-insights', label: 'Экран инсайтов недели' },
+      { id: 's-settings', label: 'Настройки данных' },
+      { id: 's-dashboard', label: 'Дашборд' },
+    ]
+  }
+};
+
+let currentScreen = 's-welcome';
+let currentScenario = 'onboarding';
+let screenHistory = [];
+let timerInterval = null;
+let timerSeconds = 300;
+
+function goTo(id) {
+  const prev = document.querySelector('.screen.active');
+  if (prev) {
+    prev.classList.remove('active');
+    screenHistory.push(prev.id);
+  }
+  const next = document.getElementById(id);
+  if (next) {
+    next.classList.add('active');
+    currentScreen = id;
+  }
+  updateSidebar();
+
+  // Special logic
+  if (id === 's-dashboard' && currentScenario === 'notification') {
+    setTimeout(showNotif, 800);
+  }
+  if (id === 's-timer') {
+    startTimer();
+  } else {
+    stopTimer();
+  }
+}
+
+function goBack() {
+  if (screenHistory.length > 0) {
+    const prev = screenHistory.pop();
+    const cur = document.querySelector('.screen.active');
+    if (cur) cur.classList.remove('active');
+    const target = document.getElementById(prev);
+    if (target) { target.classList.add('active'); currentScreen = prev; }
+    updateSidebar();
+  }
+}
+
+function switchScenario(name) {
+  currentScenario = name;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  screenHistory = [];
+
+  const s = scenarios[name];
+  const sidebar = document.getElementById('flow-sidebar');
+  sidebar.querySelector('h3').textContent = s.title.replace('\n', '\n');
+
+  const first = s.steps[0].id;
+
+  // Hide notif
+  const nb = document.getElementById('notif-banner');
+  if (nb) nb.style.display = 'none';
+
+  stopTimer();
+  goTo(first);
+
+  if (name === 'notification') {
+    setTimeout(showNotif, 600);
+  }
+}
+
+function updateSidebar() {
+  const s = scenarios[currentScenario];
+  const stepsEl = document.getElementById('flow-steps');
+  stepsEl.innerHTML = '';
+  s.steps.forEach((step, i) => {
+    const div = document.createElement('div');
+    div.className = 'flow-step' + (step.id === currentScreen ? ' current' : '');
+    div.onclick = () => goTo(step.id);
+    div.innerHTML = `<div class="step-num">${i+1}</div><div class="step-text">${step.label}</div>`;
+    stepsEl.appendChild(div);
+  });
+  const sidebar = document.getElementById('flow-sidebar');
+  sidebar.querySelector('h3').innerHTML = s.title.replace('\n','<br>');
+}
+
+function toggleTag(el) {
+  el.classList.toggle('selected');
+}
+
+function toggleRating(el) {
+  el.parentElement.querySelectorAll('.rating-tag').forEach(t => t.classList.remove('sel'));
+  el.classList.add('sel');
+}
+
+function selectEmoji(el) {
+  document.querySelectorAll('.emoji-btn').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function showNotif() {
+  const nb = document.getElementById('notif-banner');
+  if (nb && currentScreen === 's-dashboard') {
+    nb.style.display = 'flex';
+    nb.style.animation = 'none';
+    nb.offsetHeight;
+    nb.style.animation = 'slideDown 0.4s cubic-bezier(.4,0,.2,1) forwards';
+  }
+}
+
+function handleNotifTap() {
+  const nb = document.getElementById('notif-banner');
+  if (nb) nb.style.display = 'none';
+  goTo('s-insight-detail');
+}
+
+function startTimer() {
+  stopTimer();
+  timerSeconds = 300;
+  const phases = ['Вдох медленно...', 'Задержи...', 'Выдох...', 'Пауза...'];
+  let phaseI = 0;
+  const phaseEl = document.getElementById('breathe-phase');
+  const numEl = document.getElementById('timer-num');
+  const prog = document.getElementById('timer-progress');
+  const total = 439.82;
+
+  timerInterval = setInterval(() => {
+    timerSeconds--;
+    const m = Math.floor(timerSeconds / 60);
+    const s = timerSeconds % 60;
+    if (numEl) numEl.textContent = `${m}:${s.toString().padStart(2,'0')}`;
+    if (prog) prog.style.strokeDashoffset = total * (1 - timerSeconds / 300);
+    if (timerSeconds % 4 === 0 && phaseEl) {
+      phaseI = (phaseI + 1) % phases.length;
+      phaseEl.textContent = phases[phaseI];
+    }
+    if (timerSeconds <= 0) { stopTimer(); goTo('s-feedback'); }
+  }, 1000);
+}
+
+function stopTimer() {
+  if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+}
+
+// Init
+updateSidebar();
+</script>
 </body>
 </html>
