@@ -3,155 +3,145 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Aura — Prototype</title>
+<title>Aura — Прототип</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════
    TOKENS
 ═══════════════════════════════════════ */
 :root {
-  --aura:       #74AEFA;
-  --aura-light: #BAD7FD;
-  --aura-dark:  #343963;
-  --aura-glow:  rgba(116,174,250,0.16);
-  --aura-glow2: rgba(116,174,250,0.08);
-  --bg:         #141629;
-  --bg2:        #1C1F38;
-  --bg3:        #222540;
-  --surface:    #2A2E52;
-  --surface2:   #343963;
-  --surface3:   #3D4470;
-  --text:       #BAD7FD;
-  --text2:      #8AAED4;
-  --text3:      #5A6E90;
-  --text4:      #3D4F6E;
-  --green:      #74AEFA;
-  --green-bg:   rgba(116,174,250,0.1);
-  --warn:       #F29E9E;
-  --warn-bg:    rgba(242,158,158,0.1);
-  --ok:         #7DD4A8;
-  --ok-bg:      rgba(125,212,168,0.1);
-  --r:  22px;
-  --rs: 14px;
-  --rx: 36px;
+  --aura:       #5B9EF5;
+  --aura-light: #A8CDFB;
+  --aura-dark:  #2A5FAD;
+  --aura-glow:  rgba(91,158,245,0.10);
+  --bg:         #F7F4EF;
+  --bg2:        #FFFFFF;
+  --bg3:        #F2EEE8;
+  --surface:    #F9F7F3;
+  --surface2:   #EDE9E1;
+  --text:       #1E2A3A;
+  --text2:      #4A6080;
+  --text3:      #8A9BB0;
+  --positive:   #5B9EF5;
+  --warn:       #D06060;
+  --r:  20px;
+  --rs: 12px;
 }
 
-/* ═══════════════════════════════════════
-   RESET + BASE
-═══════════════════════════════════════ */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { width: 100%; height: 100%; overflow: hidden; }
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
 body {
   font-family: 'Inter', sans-serif;
-  background: var(--bg);
+  background: #EDE9E1;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text);
-  -webkit-font-smoothing: antialiased;
+  padding: 24px 16px;
 }
-button { font-family: 'Inter', sans-serif; cursor: pointer; border: none; background: none; }
-input, select { font-family: 'Inter', sans-serif; }
 
 /* ═══════════════════════════════════════
    OUTER SHELL
 ═══════════════════════════════════════ */
 .shell {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 40px;
-  padding: 20px;
-}
-
-/* ═══════════════════════════════════════
-   PHONE
-═══════════════════════════════════════ */
-.phone {
   width: 390px;
   height: 844px;
   background: var(--bg2);
   border-radius: 52px;
-  border: 1.5px solid rgba(116,174,250,0.12);
+  border: 2px solid rgba(91,158,245,0.18);
+  box-shadow:
+    0 0 0 8px rgba(91,158,245,0.06),
+    0 40px 80px rgba(30,42,58,0.18),
+    0 0 60px rgba(91,158,245,0.08);
   overflow: hidden;
   position: relative;
   flex-shrink: 0;
-  box-shadow:
-    0 0 0 6px #0E1020,
-    0 40px 100px rgba(0,0,0,0.7),
-    0 0 80px rgba(116,174,250,0.06);
 }
-.notch {
+
+/* notch */
+.shell::before {
+  content: '';
   position: absolute;
-  top: 0; left: 50%; transform: translateX(-50%);
+  top: 0; left: 50%;
+  transform: translateX(-50%);
   width: 126px; height: 34px;
-  background: #0E1020;
-  border-radius: 0 0 20px 20px;
-  z-index: 200;
+  background: #EDE9E1;
+  border-radius: 0 0 22px 22px;
+  z-index: 999;
 }
-.status-bar {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 50px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  padding: 0 28px 6px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text2);
-  z-index: 100;
-  pointer-events: none;
-}
-.status-icons { display: flex; align-items: center; gap: 5px; }
-.status-icons svg { width: 14px; height: 14px; fill: var(--text2); }
 
 /* ═══════════════════════════════════════
-   SCREENS
+   STATUS BAR
+═══════════════════════════════════════ */
+.sbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 28px 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text2);
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 900;
+  pointer-events: none;
+}
+.sbar-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.sbar-right svg { width: 16px; height: 16px; fill: var(--text2); }
+
+/* ═══════════════════════════════════════
+   SCREEN SYSTEM
 ═══════════════════════════════════════ */
 .screen {
   position: absolute;
   inset: 0;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   opacity: 0;
   pointer-events: none;
+  transform: translateX(100%);
+  transition: opacity 0.3s ease, transform 0.35s cubic-bezier(.4,0,.2,1);
   will-change: transform, opacity;
-  overflow: hidden;
 }
 .screen.active {
   opacity: 1;
   pointer-events: all;
+  transform: translateX(0);
 }
-.screen.slide-in  { animation: slideIn  .32s cubic-bezier(.4,0,.2,1) forwards; }
-.screen.slide-out { animation: slideOut .32s cubic-bezier(.4,0,.2,1) forwards; }
-.screen.slide-in-left  { animation: slideInLeft  .32s cubic-bezier(.4,0,.2,1) forwards; }
-.screen.slide-out-right { animation: slideOutRight .32s cubic-bezier(.4,0,.2,1) forwards; }
-.screen.fade-in  { animation: fadeIn  .25s ease forwards; }
-.screen.fade-out { animation: fadeOut .25s ease forwards; }
+.screen.exit-left {
+  opacity: 0;
+  transform: translateX(-30%);
+  pointer-events: none;
+}
+.screen.slide-up {
+  transform: translateY(100%);
+}
+.screen.active.from-up {
+  transform: translateY(0);
+}
 
-@keyframes slideIn        { from { transform: translateX(100%); opacity:0; } to { transform: translateX(0); opacity:1; } }
-@keyframes slideOut       { from { transform: translateX(0);    opacity:1; } to { transform: translateX(-30%); opacity:0; } }
-@keyframes slideInLeft    { from { transform: translateX(-100%); opacity:0; } to { transform: translateX(0); opacity:1; } }
-@keyframes slideOutRight  { from { transform: translateX(0);    opacity:1; } to { transform: translateX(100%); opacity:0; } }
-@keyframes fadeIn         { from { opacity:0; } to { opacity:1; } }
-@keyframes fadeOut        { from { opacity:1; } to { opacity:0; } }
-
-/* scrollable content area */
-.sc {
+/* scroll area */
+.scroll {
   flex: 1;
   overflow-y: auto;
-  overflow-x: hidden;
-  padding: 56px 24px 90px;
+  padding: 52px 24px 96px;
   display: flex;
   flex-direction: column;
   gap: 14px;
+  -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
 }
-.sc::-webkit-scrollbar { display: none; }
-.sc-center { justify-content: center; align-items: center; text-align: center; }
+.scroll::-webkit-scrollbar { display: none; }
+.scroll.center {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
 
 /* ═══════════════════════════════════════
    BOTTOM NAV
@@ -159,1100 +149,1189 @@ input, select { font-family: 'Inter', sans-serif; }
 .bnav {
   position: absolute;
   bottom: 0; left: 0; right: 0;
-  height: 88px;
-  background: linear-gradient(to top, var(--bg2) 60%, transparent);
+  height: 84px;
+  background: linear-gradient(to top, #FFFFFF 80%, rgba(255,255,255,0));
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 0 8px 20px;
-  z-index: 50;
+  padding: 0 12px 20px;
+  z-index: 800;
 }
 .nb {
   display: flex; flex-direction: column; align-items: center; gap: 4px;
   color: var(--text3); font-size: 10px; font-weight: 500;
-  padding: 8px 18px; border-radius: 16px; transition: color .2s;
-  background: none; border: none;
+  padding: 8px 20px; border-radius: 16px; cursor: pointer;
+  transition: color 0.2s;
+  border: none; background: none;
 }
-.nb.on { color: var(--aura); }
-.nb svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.nb.on { color: var(--aura-dark); }
+.nb svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
 /* ═══════════════════════════════════════
    TYPOGRAPHY
 ═══════════════════════════════════════ */
-.t-title  { font-size: 28px; font-weight: 700; color: var(--text);  letter-spacing: -.03em; line-height: 1.15; }
-.t-h2     { font-size: 22px; font-weight: 700; color: var(--text);  letter-spacing: -.02em; line-height: 1.2; }
-.t-h3     { font-size: 17px; font-weight: 600; color: var(--text);  letter-spacing: -.01em; }
-.t-body   { font-size: 14px; font-weight: 400; color: var(--text2); line-height: 1.65; }
-.t-sm     { font-size: 13px; font-weight: 400; color: var(--text2); line-height: 1.5; }
-.t-caption{ font-size: 11px; font-weight: 500; color: var(--text3); letter-spacing: .08em; text-transform: uppercase; }
-.t-mono   { font-size: 11px; font-weight: 500; color: var(--text3); font-variant-numeric: tabular-nums; }
-
-/* ═══════════════════════════════════════
-   LAYOUT UTILS
-═══════════════════════════════════════ */
-.row   { display: flex; align-items: center; gap: 12px; }
-.col   { display: flex; flex-direction: column; gap: 6px; }
-.btw   { display: flex; align-items: center; justify-content: space-between; }
-.gap4  { gap: 4px; } .gap6 { gap: 6px; } .gap8 { gap: 8px; }
-.gap10 { gap: 10px; } .gap16{ gap: 16px; } .gap20{ gap: 20px; }
-.flex1 { flex: 1; }
-.w100  { width: 100%; }
-.divider { height: 1px; background: rgba(255,255,255,0.06); }
-.spacer { flex: 1; }
-.mt4 { margin-top: 4px; } .mt8 { margin-top: 8px; } .mt12 { margin-top: 12px; }
-
-/* ═══════════════════════════════════════
-   CARDS
-═══════════════════════════════════════ */
-.card {
-  background: var(--surface);
-  border-radius: var(--r);
-  padding: 20px;
-  border: 1px solid rgba(255,255,255,0.05);
-}
-.card-sm {
-  background: var(--surface);
-  border-radius: var(--rs);
-  padding: 14px 16px;
-  border: 1px solid rgba(255,255,255,0.05);
-}
-.card-accent {
-  background: var(--aura-glow2);
-  border: 1px solid rgba(116,174,250,0.2);
-  border-radius: var(--r);
-  padding: 18px 20px;
-}
-.card-warn {
-  background: var(--warn-bg);
-  border: 1px solid rgba(242,158,158,0.2);
-  border-radius: var(--r);
-  padding: 18px 20px;
-}
-
-/* ═══════════════════════════════════════
-   BUTTONS
-═══════════════════════════════════════ */
-.btn {
-  width: 100%; border-radius: var(--rx); padding: 16px 24px;
-  font-size: 15px; font-weight: 600; letter-spacing: -.01em;
-  border: none; transition: transform .15s, opacity .15s;
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-}
-.btn:active { transform: scale(.97); opacity: .9; }
-.btn-p { background: var(--aura); color: #0E1020; }
-.btn-s { background: var(--surface2); color: var(--text); }
-.btn-o { background: transparent; color: var(--text2); border: 1px solid var(--surface2); }
-.btn-ghost { background: transparent; color: var(--text3); font-size: 13px; font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
-.btn-danger { background: var(--warn-bg); color: var(--warn); border: 1px solid rgba(242,158,158,0.2); }
-.btn-sm { padding: 11px 20px; font-size: 13px; font-weight: 600; }
-
-/* ═══════════════════════════════════════
-   FORM ELEMENTS
-═══════════════════════════════════════ */
-.toggle {
-  width: 48px; height: 28px; border-radius: 100px; flex-shrink: 0;
-  position: relative; cursor: pointer; transition: background .25s; border: none;
-}
-.toggle.on  { background: var(--aura); }
-.toggle.off { background: var(--surface2); }
-.toggle::after {
-  content: ''; position: absolute; width: 22px; height: 22px;
-  background: white; border-radius: 50%; top: 3px;
-  transition: left .25s;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
-}
-.toggle.on::after  { left: 23px; }
-.toggle.off::after { left: 3px; }
-
-.chip {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 9px 16px; border-radius: 100px; font-size: 13px; font-weight: 500;
-  background: var(--surface2); color: var(--text2);
-  border: 1.5px solid transparent; cursor: pointer; transition: all .2s;
-}
-.chip.sel { background: var(--aura-glow); border-color: var(--aura); color: var(--aura-light); }
-.chip svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
-
-.pill-freq {
-  display: flex; gap: 6px;
-}
-.pf-btn {
-  flex: 1; padding: 8px 0; border-radius: 100px; font-size: 12px; font-weight: 500;
-  background: var(--surface2); color: var(--text3); border: 1.5px solid transparent;
-  transition: all .2s;
-}
-.pf-btn.sel { background: var(--aura-glow); border-color: var(--aura); color: var(--aura); }
-
-.rating-row { display: flex; gap: 8px; flex-wrap: wrap; }
-.rtag {
-  padding: 7px 14px; border-radius: 100px; font-size: 12px; font-weight: 500;
-  background: var(--surface2); color: var(--text3);
-  border: 1.5px solid transparent; cursor: pointer; transition: all .2s;
-}
-.rtag.sel { background: var(--aura-glow); border-color: var(--aura); color: var(--aura); }
-.rtag:hover { border-color: var(--surface3); color: var(--text2); }
-
-/* ═══════════════════════════════════════
-   PROGRESS BAR
-═══════════════════════════════════════ */
-.pbar-wrap { height: 5px; background: var(--surface2); border-radius: 100px; overflow: hidden; }
-.pbar-fill { height: 100%; border-radius: 100px; background: var(--aura); transition: width .5s ease; }
+.h1 { font-size: 28px; font-weight: 700; color: var(--text); letter-spacing: -0.03em; line-height: 1.15; }
+.h2 { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; line-height: 1.2; }
+.h3 { font-size: 16px; font-weight: 600; color: var(--text); }
+.lbl { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); }
+.body { font-size: 14px; color: var(--text2); line-height: 1.6; }
+.cap { font-size: 12px; color: var(--text3); line-height: 1.5; }
 
 /* ═══════════════════════════════════════
    ORB
 ═══════════════════════════════════════ */
 .orb {
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #D4E8FF, var(--aura) 50%, #2A4A8A);
-  box-shadow: 0 0 50px rgba(116,174,250,.3), 0 0 100px rgba(116,174,250,.1);
+  background: radial-gradient(circle at 32% 32%, #D8EAFF, var(--aura) 50%, #3A7AD4);
+  box-shadow: 0 0 40px rgba(91,158,245,0.25), 0 0 80px rgba(91,158,245,0.08);
   animation: breathe 4s ease-in-out infinite;
   flex-shrink: 0;
 }
 @keyframes breathe {
-  0%,100% { transform: scale(1);    box-shadow: 0 0 50px rgba(116,174,250,.3), 0 0 100px rgba(116,174,250,.1); }
-  50%      { transform: scale(1.06); box-shadow: 0 0 70px rgba(116,174,250,.45), 0 0 130px rgba(116,174,250,.15); }
+  0%,100% { transform:scale(1); box-shadow: 0 0 40px rgba(91,158,245,0.25),0 0 80px rgba(91,158,245,0.08); }
+  50%      { transform:scale(1.06); box-shadow: 0 0 60px rgba(91,158,245,0.35),0 0 100px rgba(91,158,245,0.12); }
 }
 
 /* ═══════════════════════════════════════
-   STATUS PILLS
+   CARDS
 ═══════════════════════════════════════ */
-.spill-row { display: flex; gap: 8px; }
-.spill {
-  flex: 1; background: var(--surface); border-radius: var(--rs);
-  padding: 12px 14px; border: 1px solid rgba(255,255,255,0.05);
+.card  { background:var(--surface); border-radius:var(--r); padding:20px; border:1px solid rgba(0,0,0,0.07); }
+.card-sm { background:var(--surface); border-radius:var(--rs); padding:14px 16px; border:1px solid rgba(0,0,0,0.07); }
+.card-accent {
+  background: linear-gradient(135deg, rgba(91,158,245,0.08), rgba(91,158,245,0.02));
+  border: 1px solid rgba(91,158,245,0.25);
+  border-radius: var(--r); padding: 20px;
 }
-.spill-lbl { font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--text3); margin-bottom: 5px; }
-.spill-val { font-size: 14px; font-weight: 700; }
+
+/* ═══════════════════════════════════════
+   BUTTONS
+═══════════════════════════════════════ */
+.btn-p {
+  background: var(--aura); color: #FFFFFF; border: none;
+  border-radius: 100px; padding: 16px 24px;
+  font-family:'Inter',sans-serif; font-size:15px; font-weight:700;
+  width:100%; cursor:pointer; transition:opacity 0.15s, transform 0.15s;
+  letter-spacing: -0.01em;
+}
+.btn-p:active { opacity:0.85; transform:scale(0.98); }
+
+.btn-s {
+  background:transparent; color:var(--text2);
+  border:1px solid var(--surface2); border-radius:100px;
+  padding:14px 24px; font-family:'Inter',sans-serif; font-size:14px; font-weight:500;
+  width:100%; cursor:pointer; transition:border-color 0.2s, color 0.2s;
+}
+.btn-s:active { border-color:var(--aura-dark); color:var(--aura-dark); }
+
+.btn-ghost {
+  background:transparent; color:var(--text3); border:none;
+  font-family:'Inter',sans-serif; font-size:13px;
+  width:100%; cursor:pointer; text-decoration:underline; text-underline-offset:3px;
+  padding:8px;
+}
+
+.btn-danger {
+  background:transparent; color:var(--warn);
+  border:1px solid rgba(208,96,96,0.25); border-radius:100px;
+  padding:14px 24px; font-family:'Inter',sans-serif; font-size:14px; font-weight:500;
+  width:100%; cursor:pointer;
+}
+
+/* ═══════════════════════════════════════
+   ROWS & LAYOUT HELPERS
+═══════════════════════════════════════ */
+.row   { display:flex; align-items:center; gap:12px; }
+.rowb  { display:flex; align-items:center; justify-content:space-between; }
+.col   { display:flex; flex-direction:column; gap:10px; }
+.divider { height:1px; background:rgba(0,0,0,0.07); }
+
+/* ═══════════════════════════════════════
+   PILLS / STATUS
+═══════════════════════════════════════ */
+.pill-row { display:flex; gap:8px; }
+.pill {
+  flex:1; background:var(--surface); border-radius:var(--rs);
+  padding:12px 14px; border:1px solid rgba(0,0,0,0.07);
+}
+.pill .pl { font-size:10px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--text3); margin-bottom:4px; }
+.pill .pv { font-size:14px; font-weight:600; }
 
 /* ═══════════════════════════════════════
    ICON BOX
 ═══════════════════════════════════════ */
 .ibox {
-  width: 46px; height: 46px; border-radius: 15px;
-  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  width:44px; height:44px; border-radius:14px;
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
 }
-.ibox svg { width: 22px; height: 22px; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.ibox svg { width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+
+/* ═══════════════════════════════════════
+   TOGGLE
+═══════════════════════════════════════ */
+.tog {
+  width:46px; height:28px; border-radius:100px; position:relative;
+  flex-shrink:0; cursor:pointer; transition:background 0.25s;
+}
+.tog.on  { background:var(--aura); }
+.tog.off { background:#F2EEE8; }
+.tog::after {
+  content:''; position:absolute;
+  width:22px; height:22px; background:white; border-radius:50%;
+  top:3px; transition:left 0.25s;
+}
+.tog.on::after  { left:21px; }
+.tog.off::after { left:3px; }
+
+/* ═══════════════════════════════════════
+   PROGRESS / DOTS
+═══════════════════════════════════════ */
+.bar-wrap { height:5px; background:#F2EEE8; border-radius:100px; overflow:hidden; }
+.bar-fill { height:100%; border-radius:100px; background:var(--aura); transition:width 0.5s ease; }
+
+.dots { display:flex; gap:6px; }
+.dot  { width:6px; height:6px; border-radius:50%; background:#F2EEE8; transition:all 0.3s; }
+.dot.a { width:20px; border-radius:100px; background:var(--aura); }
+
+/* ═══════════════════════════════════════
+   TAGS
+═══════════════════════════════════════ */
+.tag {
+  display:inline-flex; align-items:center; gap:8px;
+  background:#F2EEE8; border-radius:100px;
+  padding:10px 18px; font-size:13px; color:var(--text2);
+  border:1.5px solid transparent; cursor:pointer; transition:all 0.2s;
+  width:100%;
+}
+.tag.on { background:rgba(91,158,245,0.1); border-color:var(--aura-dark); color:var(--aura-dark); }
+.tag svg { width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; flex-shrink:0; }
+
+.chip {
+  padding:7px 16px; border-radius:100px; font-size:12px; font-weight:500;
+  border:1.5px solid rgba(0,0,0,0.12); background:transparent; color:var(--text2);
+  cursor:pointer; transition:all 0.2s; white-space:nowrap;
+}
+.chip.on { background:rgba(91,158,245,0.1); border-color:var(--aura-dark); color:var(--aura-dark); }
 
 /* ═══════════════════════════════════════
    PERM ITEM
 ═══════════════════════════════════════ */
-.perm-item {
-  display: flex; align-items: center; gap: 14px;
-  background: var(--surface); border-radius: var(--rs);
-  padding: 16px; border: 1px solid rgba(255,255,255,0.05);
+.perm {
+  display:flex; align-items:center; gap:14px;
+  padding:16px; background:var(--surface);
+  border-radius:var(--rs); border:1px solid rgba(0,0,0,0.07);
 }
-.perm-name { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
-.perm-desc { font-size: 12px; color: var(--text3); line-height: 1.45; }
-
-/* ═══════════════════════════════════════
-   SLIDE DOTS
-═══════════════════════════════════════ */
-.dots { display: flex; gap: 6px; }
-.dot { width: 6px; height: 6px; border-radius: 50%; background: var(--surface2); }
-.dot.a { width: 22px; border-radius: 100px; background: var(--aura); }
 
 /* ═══════════════════════════════════════
    ACTION GRID
 ═══════════════════════════════════════ */
-.action-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
-.action-opt {
-  background: var(--surface); border: 1.5px solid rgba(255,255,255,0.05);
-  border-radius: var(--rs); padding: 16px 10px;
-  display: flex; flex-direction: column; align-items: center; gap: 10px;
-  cursor: pointer; transition: all .2s;
+.agrid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+.aopt {
+  background:var(--surface); border:1.5px solid rgba(0,0,0,0.07);
+  border-radius:var(--rs); padding:16px 10px;
+  display:flex; flex-direction:column; align-items:center; gap:8px;
+  cursor:pointer; transition:all 0.2s;
 }
-.action-opt:hover { border-color: var(--aura); background: var(--aura-glow2); }
-.action-opt:active { transform: scale(.96); }
-.action-opt svg { width: 24px; height: 24px; stroke: var(--aura-light); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.action-opt .ao-l { font-size: 12px; color: var(--text2); text-align: center; line-height: 1.3; font-weight: 500; }
-
-/* ═══════════════════════════════════════
-   EMOJI ROW
-═══════════════════════════════════════ */
-.emoji-row { display: flex; justify-content: space-around; }
-.emoji-opt {
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-  padding: 14px 18px; border-radius: 18px; border: 2px solid transparent;
-  cursor: pointer; transition: all .2s;
-}
-.emoji-opt:hover { background: var(--surface2); }
-.emoji-opt.sel { background: var(--aura-glow); border-color: var(--aura); }
-.emoji-opt svg { width: 32px; height: 32px; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; fill: none; }
-.emoji-opt .el { font-size: 12px; color: var(--text3); font-weight: 500; }
+.aopt:active { border-color:var(--aura-dark); background:rgba(91,158,245,0.09); transform:scale(0.97); }
+.aopt svg { width:24px; height:24px; stroke:var(--aura-light); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+.aopt span { font-size:12px; color:var(--text2); text-align:center; line-height:1.3; }
 
 /* ═══════════════════════════════════════
    WEEKLY CARD
 ═══════════════════════════════════════ */
 .wcard {
-  background: var(--surface); border-radius: var(--r);
-  padding: 18px; border: 1px solid rgba(255,255,255,0.05);
-  display: flex; flex-direction: column; gap: 12px;
+  background:var(--surface); border-radius:var(--r);
+  padding:18px; border:1px solid rgba(0,0,0,0.07);
+  display:flex; flex-direction:column; gap:10px;
 }
-.wcard-pattern { font-size: 15px; font-weight: 600; color: var(--text); line-height: 1.4; }
 
 /* ═══════════════════════════════════════
-   SETTING ROW
+   EMOTION OPTS
 ═══════════════════════════════════════ */
-.srow {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 13px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+.emo-row { display:flex; justify-content:space-around; padding:8px 0; gap:8px; }
+.emo {
+  display:flex; flex-direction:column; align-items:center; gap:8px;
+  padding:14px 18px; border-radius:18px; border:2px solid transparent;
+  cursor:pointer; transition:all 0.2s; flex:1;
 }
-.srow:last-child { border-bottom: none; }
-.srow-name { font-size: 14px; font-weight: 500; color: var(--text); }
-.srow-sub  { font-size: 12px; color: var(--text3); margin-top: 2px; }
-
-/* ═══════════════════════════════════════
-   NOTIFICATION BANNER
-═══════════════════════════════════════ */
-.notif {
-  background: rgba(52,57,99,0.95);
-  backdrop-filter: blur(20px);
-  border-radius: 18px;
-  padding: 14px 16px;
-  display: flex; align-items: center; gap: 12px;
-  border: 1px solid rgba(116,174,250,0.15);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-  cursor: pointer;
-}
-.notif svg { width: 22px; height: 22px; stroke: var(--aura); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
-.notif-app { font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--text3); }
-.notif-msg { font-size: 14px; font-weight: 500; color: var(--text); margin-top: 2px; line-height: 1.3; }
-
-/* ═══════════════════════════════════════
-   TIMER
-═══════════════════════════════════════ */
-.timer-wrap {
-  width: 180px; height: 180px; position: relative;
-  display: flex; align-items: center; justify-content: center;
-}
-.timer-wrap svg { position: absolute; inset: 0; transform: rotate(-90deg); }
-.timer-num { font-size: 48px; font-weight: 700; color: var(--text); position: relative; z-index: 1; letter-spacing: -.03em; }
-
-/* ═══════════════════════════════════════
-   BACK BUTTON
-═══════════════════════════════════════ */
-.back-btn {
-  display: flex; align-items: center; gap: 6px;
-  font-size: 14px; font-weight: 500; color: var(--text3);
-  background: none; border: none; padding: 4px 0;
-  cursor: pointer; transition: color .2s;
-  flex-shrink: 0;
-}
-.back-btn:hover { color: var(--text); }
-.back-btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-
-/* ═══════════════════════════════════════
-   FEATURE ROW (onboarding)
-═══════════════════════════════════════ */
-.feat-row { display: flex; gap: 14px; align-items: flex-start; }
-.feat-row svg { width: 20px; height: 20px; stroke: var(--aura); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; margin-top: 2px; }
-.feat-name { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
-.feat-desc { font-size: 12px; color: var(--text3); }
-
-/* ═══════════════════════════════════════
-   STEP PILL (how it works)
-═══════════════════════════════════════ */
-.step-pill {
-  display: flex; align-items: center; gap: 14px;
-  background: var(--surface); border-radius: var(--rs);
-  padding: 14px 16px; border: 1px solid rgba(255,255,255,0.05);
-}
-.step-pill svg { width: 20px; height: 20px; stroke: var(--aura); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
-
-/* ═══════════════════════════════════════
-   CHECK ITEM
-═══════════════════════════════════════ */
-.check-item { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 500; color: var(--ok); }
-.check-item svg { width: 16px; height: 16px; stroke: var(--ok); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+.emo.on { background:rgba(91,158,245,0.09); border-color:var(--aura-dark); }
+.emo svg { width:32px; height:32px; stroke:var(--text2); fill:none; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+.emo.on svg { stroke:var(--aura); }
+.emo span { font-size:12px; color:var(--text3); }
 
 /* ═══════════════════════════════════════
    STAT BOX
 ═══════════════════════════════════════ */
 .stat-box {
-  background: var(--aura-glow2); border: 1px solid rgba(116,174,250,0.2);
-  border-radius: 16px; padding: 12px 16px; text-align: center;
+  background:rgba(91,158,245,0.09); border:1.5px solid rgba(91,158,245,0.25);
+  border-radius:var(--rs); padding:10px 14px; text-align:center;
 }
-.stat-num { font-size: 22px; font-weight: 700; color: var(--aura); letter-spacing: -.02em; }
-.stat-lbl { font-size: 11px; color: var(--text3); margin-top: 3px; font-weight: 500; }
+.stat-n { font-size:20px; font-weight:700; color:var(--aura-dark); }
+.stat-l { font-size:10px; color:var(--text3); margin-top:2px; }
 
 /* ═══════════════════════════════════════
-   SIDEBAR FLOW MAP (desktop)
+   TIMER
 ═══════════════════════════════════════ */
-.sidebar {
-  width: 240px;
-  background: var(--bg2);
-  border: 1px solid rgba(116,174,250,0.1);
+.timer-wrap {
+  width:180px; height:180px; position:relative;
+  margin:0 auto; display:flex; align-items:center; justify-content:center;
+}
+.timer-wrap svg { position:absolute; inset:0; transform:rotate(-90deg); }
+.timer-n { font-size:44px; font-weight:700; color:var(--text); position:relative; z-index:1; letter-spacing:-0.02em; }
+
+/* ═══════════════════════════════════════
+   NOTIFICATION BANNER
+═══════════════════════════════════════ */
+.notif {
+  background:#F2EEE8;
+  border:1px solid rgba(116,174,250,0.2);
+  border-radius:20px; padding:14px 18px;
+  display:flex; align-items:center; gap:14px;
+  cursor:pointer; transition:transform 0.15s;
+  animation: slideDown 0.4s cubic-bezier(.4,0,.2,1) forwards;
+}
+.notif:active { transform:scale(0.98); }
+@keyframes slideDown {
+  from { transform:translateY(-10px); opacity:0; }
+  to   { transform:translateY(0);     opacity:1; }
+}
+.notif svg { width:26px; height:26px; stroke:var(--aura); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; flex-shrink:0; }
+
+/* ═══════════════════════════════════════
+   SETTING ROW
+═══════════════════════════════════════ */
+.srow {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:13px 0; border-bottom:1px solid rgba(0,0,0,0.07);
+}
+.srow:last-child { border-bottom:none; }
+.srow-info .sn { font-size:14px; font-weight:500; color:var(--text); }
+.srow-info .ss { font-size:12px; color:var(--text3); margin-top:2px; }
+
+/* ═══════════════════════════════════════
+   BACK BUTTON
+═══════════════════════════════════════ */
+.back {
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:14px; color:var(--text3); cursor:pointer;
+  padding:4px 0; transition:color 0.2s;
+}
+.back:active { color:var(--text); }
+.back svg { width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
+
+/* feature row */
+.feat { display:flex; gap:14px; align-items:flex-start; padding:4px 0; }
+.feat svg { width:20px; height:20px; stroke:var(--aura); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; flex-shrink:0; margin-top:2px; }
+
+/* check item */
+.chk { display:flex; align-items:center; gap:10px; font-size:13px; color:var(--positive); }
+.chk svg { width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
+
+/* step pill */
+.spill {
+  display:flex; align-items:center; gap:14px;
+  background:var(--surface); border-radius:var(--rs);
+  padding:14px 16px; border:1px solid rgba(0,0,0,0.07);
+}
+.spill svg { width:18px; height:18px; stroke:var(--aura); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; flex-shrink:0; }
+
+/* ═══════════════════════════════════════
+   TRANSITIONS - override for specific
+═══════════════════════════════════════ */
+.screen.modal {
+  transform: translateY(100%);
+  border-radius: 32px 32px 0 0;
+  height: auto;
+  top: auto;
+  bottom: 0;
+}
+.screen.modal.active { transform: translateY(0); }
+
+/* ═══════════════════════════════════════
+   FLOW MAP OVERLAY
+═══════════════════════════════════════ */
+#flow-map {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(30,42,58,0.7);
+  z-index: 9000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+#flow-map.open { display: flex; }
+.fmap-box {
+  background: #F7F4EF;
+  border: 1px solid var(--surface2);
   border-radius: 24px;
-  padding: 24px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  max-height: 844px;
+  padding: 28px;
+  max-width: 440px;
+  width: 100%;
+  max-height: 90vh;
   overflow-y: auto;
-  scrollbar-width: none;
 }
-.sidebar::-webkit-scrollbar { display: none; }
-.sidebar-title { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text3); margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.06); }
-.flow-group { margin-top: 12px; }
-.flow-group-label { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text4); margin-bottom: 6px; padding-left: 8px; }
-.fstep {
-  display: flex; align-items: center; gap: 10px;
-  padding: 9px 10px; border-radius: 12px; cursor: pointer;
-  transition: all .2s; border: none; background: none; width: 100%; text-align: left;
+.fmap-box h2 { font-size:16px; font-weight:700; color:var(--aura-dark); margin-bottom:20px; }
+.fmap-section { margin-bottom:20px; }
+.fmap-section h3 { font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--text3); font-weight:600; margin-bottom:10px; }
+.fmap-btn {
+  display:flex; align-items:center; gap:10px;
+  padding:10px 14px; border-radius:12px; border:1px solid var(--surface2);
+  background:transparent; color:var(--text2); font-family:'Inter',sans-serif;
+  font-size:13px; cursor:pointer; width:100%; margin-bottom:6px;
+  transition:all 0.2s; text-align:left;
 }
-.fstep:hover { background: var(--surface2); }
-.fstep.cur { background: var(--aura-glow); }
-.fstep-num {
-  width: 22px; height: 22px; border-radius: 50%;
-  background: var(--surface2); color: var(--text3);
-  font-size: 10px; font-weight: 700;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; transition: all .2s;
-}
-.fstep.cur .fstep-num { background: var(--aura); color: #0E1020; }
-.fstep-lbl { font-size: 12px; font-weight: 500; color: var(--text2); line-height: 1.3; }
-.fstep.cur .fstep-lbl { color: var(--aura-light); }
+.fmap-btn:hover { border-color:var(--aura-dark); color:var(--aura-dark); background:rgba(91,158,245,0.09); }
+.fmap-btn.cur { border-color:var(--aura-dark); color:var(--aura-dark); background:rgba(91,158,245,0.09); }
+.fmap-num { width:22px; height:22px; border-radius:50%; background:#F2EEE8; font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.fmap-btn.cur .fmap-num { background:var(--aura); color:#DDD9D0; }
 
-@media (max-width: 700px) { .sidebar { display: none; } }
+/* outer controls */
+.outer {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 8000;
+}
+.outer-btn {
+  background: rgba(247,244,239,0.95);
+  border: 1px solid rgba(91,158,245,0.2);
+  border-radius: 100px;
+  padding: 10px 20px;
+  color: var(--text3);
+  font-family: 'Inter',sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.outer-btn:hover { border-color:var(--aura-dark); color:var(--aura-dark); }
+.outer-btn svg { width:14px; height:14px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
 
 /* ═══════════════════════════════════════
-   INLINE SVG ICONS UTIL
+   SVG ICONS (inline helpers)
 ═══════════════════════════════════════ */
-.ic { display: inline-flex; align-items: center; justify-content: center; }
-.ic svg { stroke-linecap: round; stroke-linejoin: round; fill: none; }
 </style>
 </head>
 <body>
 
+<!-- ═══ OUTER CONTROLS ═══ -->
+<div class="outer">
+  <button class="outer-btn" onclick="document.getElementById('flow-map').classList.toggle('open')">
+    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+    Все экраны
+  </button>
+  <button class="outer-btn" onclick="goBack()">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    Назад
+  </button>
+</div>
+
+<!-- ═══ FLOW MAP ═══ -->
+<div id="flow-map" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="fmap-box">
+    <h2>Навигация по экранам</h2>
+    <div class="fmap-section">
+      <h3>Сценарий 1 — Онбординг</h3>
+      <button class="fmap-btn" onclick="jumpTo('s-welcome')"><div class="fmap-num">1</div>Приветствие</button>
+      <button class="fmap-btn" onclick="jumpTo('s-onb1')"><div class="fmap-num">2</div>Слайд — Что умеет Aura</button>
+      <button class="fmap-btn" onclick="jumpTo('s-onb2')"><div class="fmap-num">3</div>Слайд — Как работает</button>
+      <button class="fmap-btn" onclick="jumpTo('s-onb3')"><div class="fmap-num">4</div>Слайд — Приватность</button>
+      <button class="fmap-btn" onclick="jumpTo('s-perm1')"><div class="fmap-num">5</div>Разрешение: Apple Health</button>
+      <button class="fmap-btn" onclick="jumpTo('s-perm2')"><div class="fmap-num">6</div>Разрешение: Календарь</button>
+      <button class="fmap-btn" onclick="jumpTo('s-quiz')"><div class="fmap-num">7</div>Мини-опрос</button>
+    </div>
+    <div class="fmap-section">
+      <h3>Главный дашборд</h3>
+      <button class="fmap-btn" onclick="jumpTo('s-dash')"><div class="fmap-num">8</div>Дашборд</button>
+    </div>
+    <div class="fmap-section">
+      <h3>Сценарий 2 — Уведомление</h3>
+      <button class="fmap-btn" onclick="jumpTo('s-dash-notif')"><div class="fmap-num">9</div>Дашборд + уведомление</button>
+      <button class="fmap-btn" onclick="jumpTo('s-insight')"><div class="fmap-num">10</div>Детальный инсайт</button>
+      <button class="fmap-btn" onclick="jumpTo('s-timer')"><div class="fmap-num">11</div>Практика — таймер</button>
+      <button class="fmap-btn" onclick="jumpTo('s-feedback')"><div class="fmap-num">12</div>Обратная связь</button>
+    </div>
+    <div class="fmap-section">
+      <h3>Сценарий 3 — Инсайты + Настройки</h3>
+      <button class="fmap-btn" onclick="jumpTo('s-insights')"><div class="fmap-num">13</div>Инсайты недели</button>
+      <button class="fmap-btn" onclick="jumpTo('s-settings')"><div class="fmap-num">14</div>Настройки</button>
+    </div>
+    <button class="btn-p" style="margin-top:10px;" onclick="document.getElementById('flow-map').classList.remove('open')">Закрыть</button>
+  </div>
+</div>
+
+<!-- ═══ PHONE SHELL ═══ -->
 <div class="shell">
-
-<!-- ── PHONE ── -->
-<div class="phone">
-  <div class="notch"></div>
-
-  <!-- Status bar -->
-  <div class="status-bar">
+  <div class="sbar">
     <span>9:41</span>
-    <div class="status-icons">
-      <!-- signal -->
-      <svg viewBox="0 0 14 14"><rect x="0" y="8" width="3" height="6" rx="1"/><rect x="4" y="5" width="3" height="9" rx="1"/><rect x="8" y="2" width="3" height="12" rx="1"/><rect x="12" y="0" width="2" height="14" rx="1" opacity=".3"/></svg>
-      <!-- wifi -->
-      <svg viewBox="0 0 16 12"><path d="M1 4.5C3.8 1.5 7.7 0 8 0s4.2 1.5 7 4.5" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round"/><path d="M3.5 7C5 5.3 6.7 4.5 8 4.5S11 5.3 12.5 7" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round"/><circle cx="8" cy="10" r="1.5" fill="currentColor"/></svg>
-      <!-- battery -->
-      <svg viewBox="0 0 22 12"><rect x="0" y="1" width="18" height="10" rx="2.5" stroke-width="1.2" stroke="currentColor"/><rect x="18.5" y="3.5" width="2" height="5" rx="1" fill="currentColor" opacity=".5"/><rect x="1.5" y="2.5" width="12" height="7" rx="1.5" fill="currentColor"/></svg>
+    <div class="sbar-right">
+      <svg viewBox="0 0 24 24"><path d="M1 6s4.5-4 11-4 11 4 11 4M5 10s3-2.5 7-2.5S17 10 17 10M9 14s1.5-1.5 3-1.5 3 1.5 3 1.5M12 18h.01"/></svg>
+      <svg viewBox="0 0 24 24"><rect x="2" y="7" width="16" height="11" rx="2" ry="2"/><path d="M22 11v3"/></svg>
     </div>
   </div>
 
-  <!-- ════════════════════════════════ -->
-  <!-- S0: WELCOME                     -->
-  <!-- ════════════════════════════════ -->
-  <div class="screen active" id="s-welcome">
-    <div class="sc sc-center gap20" style="padding-top:80px;">
-      <div class="col" style="align-items:center;gap:14px;">
-        <div class="orb" style="width:120px;height:120px;"></div>
-        <span class="t-caption">Знакомься — это Aura</span>
-      </div>
-      <div class="col gap8" style="align-items:center;">
-        <div class="t-title">Твой личный<br>компаньон</div>
-        <div class="t-body" style="max-width:270px;">Адаптируется под тебя. Замечает, когда нужна пауза. Подсказывает — не командует.</div>
-      </div>
-      <div class="col gap8 w100" style="padding:0 8px;">
-        <button class="btn btn-p" onclick="go('s-onb1')">Начать</button>
-        <button class="btn btn-ghost" onclick="go('s-dashboard')">Уже есть аккаунт</button>
-      </div>
+<!-- ════════════════════════════════════════════════════════════
+     SCREEN: WELCOME
+════════════════════════════════════════════════════════════ -->
+<div class="screen active" id="s-welcome">
+  <div class="scroll center" style="gap:32px;">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:14px;">
+      <div class="orb" style="width:120px;height:120px;"></div>
+      <div class="cap">Знакомься — это Aura</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div class="h1">Твой личный<br>компаньон</div>
+      <div class="body">Адаптируется под тебя. Замечает, когда нужна пауза. Подсказывает — не командует.</div>
+    </div>
+    <div class="col" style="width:100%;">
+      <button class="btn-p" onclick="go('s-onb1')">Начать →</button>
     </div>
   </div>
+</div>
 
-  <!-- ════════════════════════════════ -->
-  <!-- S1: ONBOARDING 1 — Возможности  -->
-  <!-- ════════════════════════════════ -->
-  <div class="screen" id="s-onb1">
-    <div class="sc" style="justify-content:space-between;">
-      <div class="dots"><div class="dot a"></div><div class="dot"></div><div class="dot"></div></div>
-      <div class="col gap20" style="flex:1;justify-content:center;">
-        <div class="ic" style="justify-content:flex-start;">
-          <svg width="52" height="52" viewBox="0 0 24 24" stroke="var(--aura)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
-          </svg>
+<!-- ════════════════════════════════════════════════════════════
+     SCREEN: ONBOARDING 1
+════════════════════════════════════════════════════════════ -->
+<div class="screen" id="s-onb1">
+  <div class="scroll" style="justify-content:space-between;">
+    <div class="dots"><div class="dot a"></div><div class="dot"></div><div class="dot"></div></div>
+    <div class="col" style="flex:1;justify-content:center;">
+      <div style="text-align:center;padding:8px 0;">
+        <svg viewBox="0 0 48 48" width="56" height="56" style="margin:0 auto;" stroke="var(--aura)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="20"/><path d="M24 14v10l6 6"/></svg>
+      </div>
+      <div class="h2" style="text-align:center;">Что умеет<br>Aura</div>
+      <div class="card col">
+        <div class="feat">
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <div><div class="h3" style="font-size:14px;margin-bottom:2px;">Читает твоё состояние</div><div class="cap">Данные с часов, календаря и заметок</div></div>
         </div>
-        <div class="t-h2">Что умеет<br>Aura</div>
-        <div class="card col gap16">
-          <div class="feat-row">
-            <svg viewBox="0 0 24 24" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            <div><div class="feat-name">Читает твоё состояние</div><div class="feat-desc">Данные с часов, календаря и твоих заметок</div></div>
-          </div>
-          <div class="divider"></div>
-          <div class="feat-row">
-            <svg viewBox="0 0 24 24" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            <div><div class="feat-name">Предлагает вовремя</div><div class="feat-desc">Не «медитируй 10 минут», а «пауза именно сейчас»</div></div>
-          </div>
-          <div class="divider"></div>
-          <div class="feat-row">
-            <svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><circle cx="12" cy="12" r="10"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-            <div><div class="feat-name">Учится у тебя</div><div class="feat-desc">Каждую неделю становится точнее</div></div>
-          </div>
+        <div class="divider"></div>
+        <div class="feat">
+          <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <div><div class="h3" style="font-size:14px;margin-bottom:2px;">Предлагает вовремя</div><div class="cap">Не «медитируй 10 минут», а «пауза именно сейчас»</div></div>
+        </div>
+        <div class="divider"></div>
+        <div class="feat">
+          <svg viewBox="0 0 24 24"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-5 0V4.5A2.5 2.5 0 0 1 9.5 2z"/><path d="M14.5 8A2.5 2.5 0 0 1 17 10.5v9a2.5 2.5 0 0 1-5 0v-9A2.5 2.5 0 0 1 14.5 8z"/></svg>
+          <div><div class="h3" style="font-size:14px;margin-bottom:2px;">Учится у тебя</div><div class="cap">Каждую неделю становится точнее</div></div>
         </div>
       </div>
-      <button class="btn btn-p" onclick="go('s-onb2')">Дальше</button>
+    </div>
+    <button class="btn-p" onclick="go('s-onb2')">Дальше</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     SCREEN: ONBOARDING 2
+════════════════════════════════════════════════════════════ -->
+<div class="screen" id="s-onb2">
+  <div class="scroll" style="justify-content:space-between;">
+    <div class="dots"><div class="dot"></div><div class="dot a"></div><div class="dot"></div></div>
+    <div class="col" style="flex:1;justify-content:center;">
+      <div style="text-align:center;padding:8px 0;">
+        <svg viewBox="0 0 48 48" width="56" height="56" style="margin:0 auto;" stroke="var(--aura)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="40" height="40" rx="8"/><line x1="24" y1="4" x2="24" y2="44"/><line x1="4" y1="24" x2="44" y2="24"/></svg>
+      </div>
+      <div class="h2" style="text-align:center;">Как это<br>работает</div>
+      <div class="col">
+        <div class="spill">
+          <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          <div class="cap" style="color:var(--text2);">Aura замечает паттерны в твоём дне</div>
+        </div>
+        <div style="text-align:center;color:var(--text3);">
+          <svg viewBox="0 0 24 24" width="20" height="20" style="margin:0 auto;" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="spill">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <div class="cap" style="color:var(--text2);">Анализирует — что у тебя уникально</div>
+        </div>
+        <div style="text-align:center;color:var(--text3);">
+          <svg viewBox="0 0 24 24" width="20" height="20" style="margin:0 auto;" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="spill">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <div class="cap" style="color:var(--text2);">Предлагает — именно тебе, именно сейчас</div>
+        </div>
+      </div>
+    </div>
+    <button class="btn-p" onclick="go('s-onb3')">Дальше</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     SCREEN: ONBOARDING 3 — PRIVACY
+════════════════════════════════════════════════════════════ -->
+<div class="screen" id="s-onb3">
+  <div class="scroll" style="justify-content:space-between;">
+    <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot a"></div></div>
+    <div class="col" style="flex:1;justify-content:center;">
+      <div style="text-align:center;padding:8px 0;">
+        <svg viewBox="0 0 48 48" width="56" height="56" style="margin:0 auto;" stroke="var(--aura)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 4l16 7v10c0 9.39-7 18-16 21C7 38 0 29.39 0 20V11l16-7z" transform="translate(4,1)"/><polyline points="16 24 20 28 28 20" transform="translate(4,1)"/></svg>
+      </div>
+      <div class="h2" style="text-align:center;">Твои данные —<br>только у тебя</div>
+      <div class="card col">
+        <div class="body" style="font-size:13px;">Aura не продаёт данные и не передаёт третьим лицам. Всё можно скачать или удалить в любой момент.</div>
+        <div class="divider"></div>
+        <div class="chk"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Данные шифруются на устройстве</div>
+        <div class="chk"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Геолокация и контакты не нужны</div>
+        <div class="chk"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Соответствует 152-ФЗ и GDPR</div>
+      </div>
+    </div>
+    <div class="col">
+      <button class="btn-p" onclick="go('s-perm1')">Настроить Aura</button>
+      <button class="btn-ghost" onclick="go('s-perm1')">Быстрый старт (минимум разрешений)</button>
     </div>
   </div>
+</div>
 
-  <!-- ════════════════════════════════ -->
-  <!-- S2: ONBOARDING 2 — Как работает -->
-  <!-- ════════════════════════════════ -->
-  <div class="screen" id="s-onb2">
-    <div class="sc" style="justify-content:space-between;">
-      <div class="dots"><div class="dot"></div><div class="dot a"></div><div class="dot"></div></div>
-      <div class="col gap20" style="flex:1;justify-content:center;">
-        <div class="ic" style="justify-content:flex-start;">
-          <svg width="52" height="52" viewBox="0 0 24 24" stroke="var(--aura)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
-          </svg>
+<!-- ════════════════════════════════════════════════════════════
+     SCREEN: PERMISSION 1
+════════════════════════════════════════════════════════════ -->
+<div class="screen" id="s-perm1">
+  <div class="scroll" style="justify-content:space-between;">
+    <div class="col" style="gap:8px;">
+      <div class="lbl">1 из 2 разрешений</div>
+      <div class="bar-wrap"><div class="bar-fill" style="width:50%"></div></div>
+    </div>
+    <div class="col" style="flex:1;justify-content:center;">
+      <div class="h2">Данные<br>о здоровье</div>
+      <div class="perm">
+        <div class="ibox" style="background:rgba(116,174,250,0.12);">
+          <svg viewBox="0 0 24 24" style="stroke:var(--positive);"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
         </div>
-        <div class="t-h2">Как это<br>работает</div>
-        <div class="col gap8">
-          <div class="step-pill">
-            <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-            <span class="t-sm">Aura замечает паттерны в твоём дне</span>
-          </div>
-          <div style="text-align:center;padding:2px 0;">
-            <svg width="16" height="16" viewBox="0 0 24 24" stroke="var(--text3)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
-          </div>
-          <div class="step-pill">
-            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <span class="t-sm">Анализирует, что у тебя уникально</span>
-          </div>
-          <div style="text-align:center;padding:2px 0;">
-            <svg width="16" height="16" viewBox="0 0 24 24" stroke="var(--text3)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
-          </div>
-          <div class="step-pill">
-            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            <span class="t-sm">Предлагает — именно тебе, именно сейчас</span>
-          </div>
+        <div>
+          <div class="h3" style="font-size:14px;">Apple Health</div>
+          <div class="cap">Пульс, сон, шаги — основа для понимания состояния</div>
         </div>
       </div>
-      <div class="row w100" style="gap:10px;">
-        <button class="btn btn-s btn-sm" style="flex:.4;" onclick="go('s-onb1','back')">←</button>
-        <button class="btn btn-p" style="flex:1;" onclick="go('s-onb3')">Дальше</button>
+      <div class="card-accent">
+        <div class="lbl" style="margin-bottom:8px;">Зачем это нужно</div>
+        <div class="body" style="font-size:13px;">Если ЧСС растёт, а активности нет — скорее всего стресс. Aura замечает это раньше, чем ты почувствуешь.</div>
       </div>
+    </div>
+    <div class="col">
+      <button class="btn-p" onclick="go('s-perm2')">Разрешить доступ</button>
+      <button class="btn-s" onclick="go('s-perm2')">Пропустить (добавлю позже)</button>
     </div>
   </div>
+</div>
 
-  <!-- ════════════════════════════════ -->
-  <!-- S3: ONBOARDING 3 — Приватность  -->
-  <!-- ════════════════════════════════ -->
-  <div class="screen" id="s-onb3">
-    <div class="sc" style="justify-content:space-between;">
-      <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot a"></div></div>
-      <div class="col gap20" style="flex:1;justify-content:center;">
-        <div class="ic" style="justify-content:flex-start;">
-          <svg width="52" height="52" viewBox="0 0 24 24" stroke="var(--aura)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-          </svg>
+<!-- ════════════════════════════════════════════════════════════
+     SCREEN: PERMISSION 2
+════════════════════════════════════════════════════════════ -->
+<div class="screen" id="s-perm2">
+  <div class="scroll" style="justify-content:space-between;">
+    <div class="col" style="gap:8px;">
+      <div class="lbl">2 из 2 разрешений</div>
+      <div class="bar-wrap"><div class="bar-fill" style="width:100%"></div></div>
+    </div>
+    <div class="col" style="flex:1;justify-content:center;">
+      <div class="h2">Календарь</div>
+      <div class="perm">
+        <div class="ibox" style="background:rgba(242,158,158,0.12);">
+          <svg viewBox="0 0 24 24" style="stroke:var(--warn);"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         </div>
-        <div class="t-h2">Твои данные —<br>только у тебя</div>
-        <div class="card col gap14">
-          <div class="t-body" style="font-size:13px;">Aura не продаёт данные и не передаёт третьим лицам. Всё можно скачать или удалить в любой момент.</div>
-          <div class="divider"></div>
-          <div class="col gap8">
-            <div class="check-item">
-              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-              Данные шифруются на устройстве
-            </div>
-            <div class="check-item">
-              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-              Геолокация и контакты не нужны
-            </div>
-            <div class="check-item">
-              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-              Соответствует 152-ФЗ и GDPR
-            </div>
-          </div>
+        <div>
+          <div class="h3" style="font-size:14px;">Google Calendar</div>
+          <div class="cap">Видит встречи подряд без перерывов — предлагает паузу</div>
         </div>
       </div>
-      <div class="col gap10 w100">
-        <button class="btn btn-p" onclick="go('s-perm1')">Настроить Aura</button>
-        <button class="btn btn-ghost" onclick="go('s-quiz')">Быстрый старт (минимум разрешений)</button>
+      <div class="card-accent">
+        <div class="lbl" style="margin-bottom:8px;">Только расписание — не содержимое</div>
+        <div class="body" style="font-size:13px;">Aura видит только время и длительность событий. Названия и детали недоступны никогда.</div>
       </div>
+    </div>
+    <div class="col">
+      <button class="btn-p" onclick="go('s-quiz')">Разрешить</button>
+      <button class="btn-s" onclick="go('s-quiz')">Пропустить</button>
     </div>
   </div>
+</div>
 
-  <!-- ════════════════════════════════ -->
-  <!-- S4: PERM 1 — Health             -->
-  <!-- ════════════════════════════════ -->
-  <div class="screen" id="s-perm1">
-    <div class="sc" style="justify-content:space-between;">
-      <div class="col gap8">
-        <div class="t-caption">1 из 2 разрешений</div>
-        <div class="pbar-wrap"><div class="pbar-fill" style="width:50%"></div></div>
-      </div>
-      <div class="col gap16" style="flex:1;justify-content:center;">
-        <div class="t-h2">Данные<br>о здоровье</div>
-        <div class="perm-item">
-          <div class="ibox" style="background:var(--ok-bg);">
-            <svg viewBox="0 0 24 24" stroke="var(--ok)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-            </svg>
-          </div>
-          <div>
-            <div class="perm-name">Apple Health</div>
-            <div class="perm-desc">Пульс, сон, шаги — основа для понимания твоего состояния. Без этого Aura работает вслепую.</div>
-          </div>
+<!-- ════════════════════════════════════════════════════════════
+     SCREEN: QUIZ
+════════════════════════════════════════════════════════════ -->
+<div class="screen" id="s-quiz">
+  <div class="scroll" style="justify-content:space-between;">
+    <div class="h2">Расскажи<br>о себе</div>
+    <div class="col" style="flex:1;justify-content:center;">
+      <div class="col" style="gap:8px;">
+        <div class="body" style="font-size:13px;">Что для тебя важнее всего?</div>
+        <div class="tag" id="q1" onclick="togTag('q1')">
+          <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+          Справляться со стрессом
         </div>
-        <div class="card-accent col gap8">
-          <div class="t-caption">Зачем это нужно</div>
-          <div class="t-sm">Если ЧСС растёт, а активности нет — скорее всего стресс. Aura замечает до того, как накроет.</div>
+        <div class="tag on" id="q2" onclick="togTag('q2')">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Поддерживать фокус
+        </div>
+        <div class="tag" id="q3" onclick="togTag('q3')">
+          <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          Не терять энергию к вечеру
+        </div>
+        <div class="tag" id="q4" onclick="togTag('q4')">
+          <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          Лучше высыпаться
         </div>
       </div>
-      <div class="col gap10 w100">
-        <button class="btn btn-p" onclick="go('s-perm2')">Разрешить доступ</button>
-        <button class="btn btn-o" onclick="go('s-perm2')">Пропустить (добавлю позже)</button>
+      <div class="col" style="gap:8px;">
+        <div class="body" style="font-size:13px;">Когда тебе обычно тяжелее всего?</div>
+        <div class="tag" id="q5" onclick="togTag('q5')">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/></svg>
+          С утра раскачиваюсь долго
+        </div>
+        <div class="tag on" id="q6" onclick="togTag('q6')">
+          <svg viewBox="0 0 24 24"><path d="M17 18a5 5 0 0 0-10 0"/><line x1="12" y1="2" x2="12" y2="9"/><line x1="4.22" y1="10.22" x2="5.64" y2="11.64"/><line x1="1" y1="18" x2="3" y2="18"/><line x1="21" y1="18" x2="23" y2="18"/><line x1="18.36" y1="11.64" x2="19.78" y2="10.22"/></svg>
+          После обеда падаю
+        </div>
+        <div class="tag" id="q7" onclick="togTag('q7')">
+          <svg viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          К вечеру накапливается
+        </div>
       </div>
     </div>
+    <button class="btn-p" onclick="go('s-dash')">Запустить Aura →</button>
   </div>
+</div>
 
-  <!-- ════════════════════════════════ -->
-  <!-- S5: PERM 2 — Calendar           -->
-  <!-- ════════════════════════════════ -->
-  <div class="screen" id="s-perm2">
-    <div class="sc" style="justify-content:space-between;">
-      <div class="col gap8">
-        <div class="t-caption">2 из 2 разрешений</div>
-        <div class="pbar-wrap"><div class="pbar-fill" style="width:100%"></div></div>
+<!-- ════════════════════════════════════════════════════════════
+     SCREEN: DASHBOARD
+════════════════════════════════════════════════════════════ -->
+<div class="screen" id="s-dash">
+  <div class="scroll" style="padding-top:56px;">
+    <div class="rowb">
+      <div>
+        <div class="cap">Вторник, 14:23</div>
+        <div class="h2">Привет 👋</div>
       </div>
-      <div class="col gap16" style="flex:1;justify-content:center;">
-        <div class="t-h2">Календарь</div>
-        <div class="perm-item">
-          <div class="ibox" style="background:var(--warn-bg);">
-            <svg viewBox="0 0 24 24" stroke="var(--warn)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-            </svg>
-          </div>
-          <div>
-            <div class="perm-name">Google Calendar</div>
-            <div class="perm-desc">Видит, что встречи идут подряд без перерывов — может подсказать паузу между ними.</div>
-          </div>
-        </div>
-        <div class="card-accent col gap8">
-          <div class="t-caption">Только расписание — не содержимое</div>
-          <div class="t-sm">Aura видит только время и длительность событий. Названия и детали встреч недоступны.</div>
-        </div>
-      </div>
-      <div class="col gap10 w100">
-        <button class="btn btn-p" onclick="go('s-quiz')">Разрешить</button>
-        <button class="btn btn-o" onclick="go('s-quiz')">Пропустить</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ════════════════════════════════ -->
-  <!-- S6: QUIZ                        -->
-  <!-- ════════════════════════════════ -->
-  <div class="screen" id="s-quiz">
-    <div class="sc" style="justify-content:space-between;">
-      <div class="t-h2">Расскажи<br>о себе</div>
-      <div class="col gap20" style="flex:1;justify-content:center;">
-        <div class="col gap8">
-          <div class="t-sm" style="font-weight:600;color:var(--text);">Что для тебя сейчас важнее всего?</div>
-          <div class="col gap6">
-            <div class="chip" onclick="toggleChip(this)">
-              <svg viewBox="0 0 24 24" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-              Справляться со стрессом
-            </div>
-            <div class="chip" onclick="toggleChip(this)">
-              <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-              Поддерживать фокус
-            </div>
-            <div class="chip sel" onclick="toggleChip(this)">
-              <svg viewBox="0 0 24 24" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-              Не терять энергию к вечеру
-            </div>
-            <div class="chip" onclick="toggleChip(this)">
-              <svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-              Лучше высыпаться
-            </div>
-          </div>
-        </div>
-        <div class="col gap8">
-          <div class="t-sm" style="font-weight:600;color:var(--text);">Когда тебе обычно тяжелее?</div>
-          <div class="col gap6">
-            <div class="chip" onclick="toggleChip(this)">
-              <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-              С утра раскачиваюсь долго
-            </div>
-            <div class="chip sel" onclick="toggleChip(this)">
-              <svg viewBox="0 0 24 24" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              После обеда падаю
-            </div>
-            <div class="chip" onclick="toggleChip(this)">
-              <svg viewBox="0 0 24 24" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-              К вечеру накапливается
-            </div>
-          </div>
-        </div>
-      </div>
-      <button class="btn btn-p" onclick="go('s-dashboard')">Запустить Aura →</button>
-    </div>
-  </div>
-
-  <!-- ════════════════════════════════ -->
-  <!-- S7: DASHBOARD                   -->
-  <!-- ════════════════════════════════ -->
-  <div class="screen" id="s-dashboard">
-    <div class="sc" style="padding-top:60px;">
-      <div class="btw">
-        <div class="col gap4">
-          <div class="t-caption">Вторник, 14:23</div>
-          <div class="t-h2">Привет 👋</div>
-        </div>
-        <button onclick="go('s-settings')" style="width:42px;height:42px;border-radius:50%;background:var(--surface);display:flex;align-items:center;justify-content:center;">
-          <svg width="20" height="20" viewBox="0 0 24 24" stroke="var(--text2)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-        </button>
-      </div>
-
-      <div class="col" style="align-items:center;gap:8px;padding:8px 0;">
-        <div class="orb" style="width:96px;height:96px;"></div>
-        <div class="t-caption">Состояние: спокойное</div>
-      </div>
-
-      <div class="spill-row">
-        <div class="spill"><div class="spill-lbl">Энергия</div><div class="spill-val" style="color:var(--aura);">Умеренная</div></div>
-        <div class="spill"><div class="spill-lbl">Стресс</div><div class="spill-val" style="color:var(--ok);">Низкий</div></div>
-        <div class="spill"><div class="spill-lbl">Сон</div><div class="spill-val">7ч 20м</div></div>
-      </div>
-
-      <div class="card-accent col gap10" onclick="go('s-insight-detail')" style="cursor:pointer;">
-        <div class="t-caption">Совет сейчас</div>
-        <div class="t-sm" style="font-size:14px;color:var(--text);">Следующие 40 минут — пик твоей концентрации. Время для сложной задачи.</div>
-        <div class="row w100" style="gap:8px;">
-          <button class="btn btn-p btn-sm" style="flex:1;" onclick="event.stopPropagation();go('s-insight-detail')">Подробнее</button>
-          <button class="btn btn-s btn-sm" style="flex:.6;" onclick="event.stopPropagation()">Позже</button>
-        </div>
-      </div>
-
-      <div class="t-caption">Сегодня</div>
-      <div class="card-sm btw">
-        <div class="row gap10">
-          <svg width="18" height="18" viewBox="0 0 24 24" stroke="var(--text3)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          <div><div class="t-h3" style="font-size:14px;">Активность</div><div class="t-caption" style="text-transform:none;letter-spacing:0;">4 200 шагов</div></div>
-        </div>
-        <div style="font-size:13px;font-weight:700;color:var(--warn);">56%</div>
-      </div>
-      <div class="card-sm btw">
-        <div class="row gap10">
-          <svg width="18" height="18" viewBox="0 0 24 24" stroke="var(--text3)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="10 15 10 12 12 12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-          <div><div class="t-h3" style="font-size:14px;">Перерывы</div><div class="t-caption" style="text-transform:none;letter-spacing:0;">1 из 3 рекомендованных</div></div>
-        </div>
-        <div style="font-size:13px;font-weight:700;color:var(--warn);">1/3</div>
-      </div>
-      <div class="card-sm btw" onclick="go('s-insights')" style="cursor:pointer;">
-        <div class="row gap10">
-          <svg width="18" height="18" viewBox="0 0 24 24" stroke="var(--text3)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-          <div><div class="t-h3" style="font-size:14px;">Инсайты недели</div><div class="t-caption" style="text-transform:none;letter-spacing:0;">Новые паттерны готовы</div></div>
-        </div>
-        <svg width="16" height="16" viewBox="0 0 24 24" stroke="var(--aura)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-      </div>
-    </div>
-    <div class="bnav">
-      <button class="nb on" onclick="go('s-dashboard')">
-        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        Главная
-      </button>
-      <button class="nb" onclick="go('s-insights')">
-        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-        Инсайты
-      </button>
-      <button class="nb" onclick="go('s-settings')">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-        Настройки
+      <button style="width:42px;height:42px;border-radius:50%;background:var(--surface);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;" onclick="go('s-settings')">
+        <svg viewBox="0 0 24 24" width="20" height="20" stroke="var(--text3)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
       </button>
     </div>
-  </div>
-
-  <!-- ════════════════════════════════ -->
-  <!-- S8: INSIGHT DETAIL              -->
-  <!-- ════════════════════════════════ -->
-  <div class="screen" id="s-insight-detail">
-    <div class="sc">
-      <button class="back-btn" onclick="go('s-dashboard','back')">
-        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-        Назад
-      </button>
-      <div class="t-h2">Что заметила<br>Aura</div>
-
-      <div class="card col gap14">
-        <div class="t-caption">На основе данных</div>
-        <div class="col gap10">
-          <div class="btw"><span class="t-sm">ЧСС за последний час</span><span style="font-size:13px;font-weight:700;color:var(--warn);">+14%</span></div>
-          <div class="pbar-wrap"><div class="pbar-fill" style="width:74%;background:var(--warn);"></div></div>
-          <div class="btw"><span class="t-sm">Без движения</span><span style="font-size:13px;font-weight:700;color:var(--warn);">2ч 47м</span></div>
-          <div class="pbar-wrap"><div class="pbar-fill" style="width:88%;background:var(--warn);"></div></div>
-          <div class="btw"><span class="t-sm">Активность снизилась</span><span style="font-size:13px;font-weight:700;color:var(--text3);">–30% от нормы</span></div>
-          <div class="pbar-wrap"><div class="pbar-fill" style="width:30%;background:var(--text3);"></div></div>
-        </div>
-      </div>
-
-      <div class="card-warn col gap8">
-        <div class="t-caption">Что это значит</div>
-        <div class="t-sm">Признаки когнитивной усталости. Короткая пауза восстановит фокус на 25–35%. Лучше — сейчас, пока не накрыло.</div>
-      </div>
-
-      <div class="t-caption">Что попробовать</div>
-      <div class="action-grid">
-        <div class="action-opt" onclick="go('s-timer')">
-          <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
-          <div class="ao-l">5 мин дыхание</div>
-        </div>
-        <div class="action-opt" onclick="go('s-feedback')">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <div class="ao-l">Прогуляться</div>
-        </div>
-        <div class="action-opt" onclick="go('s-feedback')">
-          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-          <div class="ao-l">Убрать экран</div>
-        </div>
-      </div>
-
-      <div class="col gap8">
-        <button class="btn btn-o" onclick="go('s-dashboard','back')">Напомни через 20 минут</button>
-        <button class="btn btn-ghost" onclick="go('s-dashboard','back')">Всё в порядке, спасибо</button>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:8px 0;">
+      <div class="orb" style="width:100px;height:100px;"></div>
+      <div class="cap">Состояние: спокойное</div>
+    </div>
+    <div class="pill-row">
+      <div class="pill"><div class="pl">Энергия</div><div class="pv" style="color:var(--positive);">Умеренная</div></div>
+      <div class="pill"><div class="pl">Стресс</div><div class="pv" style="color:var(--aura-dark);">Низкий</div></div>
+      <div class="pill"><div class="pl">Сон</div><div class="pv">7ч 20м</div></div>
+    </div>
+    <div class="card-accent">
+      <div class="lbl" style="margin-bottom:8px;">Совет сейчас</div>
+      <div class="body" style="font-size:14px;">Следующие 40 минут — пик твоей концентрации. Время для сложной задачи.</div>
+      <div class="row" style="margin-top:14px;gap:8px;">
+        <button class="btn-p" style="padding:11px 16px;font-size:13px;" onclick="go('s-dash-notif')">Принять</button>
+        <button class="btn-s" style="padding:11px 16px;font-size:13px;width:auto;" onclick="go('s-dash')">Позже</button>
       </div>
     </div>
-  </div>
-
-  <!-- ════════════════════════════════ -->
-  <!-- S9: TIMER                       -->
-  <!-- ════════════════════════════════ -->
-  <div class="screen" id="s-timer">
-    <div class="sc sc-center" style="justify-content:space-between;padding-top:60px;">
-      <button class="back-btn" style="align-self:flex-start;" onclick="go('s-insight-detail','back');stopTimer()">
-        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-        Назад
-      </button>
-      <div class="col gap24" style="flex:1;justify-content:center;align-items:center;width:100%;gap:24px;">
-        <div class="t-h2" style="text-align:center;">Дыхательная<br>практика</div>
-        <div class="timer-wrap">
-          <svg viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="90" cy="90" r="80" stroke="var(--surface2)" stroke-width="8"/>
-            <circle cx="90" cy="90" r="80" stroke="var(--aura)" stroke-width="8"
-              stroke-dasharray="502.65" stroke-dashoffset="0" id="timer-track"
-              style="transition:stroke-dashoffset 1s linear;"/>
-          </svg>
-          <div class="timer-num" id="timer-display">5:00</div>
-        </div>
-        <div class="card" style="text-align:center;width:100%;max-width:300px;">
-          <div class="t-h3" id="breathe-phase" style="margin-bottom:6px;">Вдох...</div>
-          <div class="t-sm">Дыши вместе с орбом — медленно и равномерно</div>
-        </div>
-        <button class="btn btn-p" style="max-width:300px;" onclick="stopTimer();go('s-feedback')">Завершить практику</button>
+    <div class="lbl">Сегодня</div>
+    <div class="card-sm rowb">
+      <div class="row">
+        <svg viewBox="0 0 24 24" width="18" height="18" stroke="var(--text3)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        <div><div class="h3" style="font-size:13px;">Активность</div><div class="cap">4 200 шагов</div></div>
       </div>
+      <div style="font-size:13px;font-weight:600;color:var(--warn);">56%</div>
+    </div>
+    <div class="card-sm rowb">
+      <div class="row">
+        <svg viewBox="0 0 24 24" width="18" height="18" stroke="var(--text3)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="10" y1="15" x2="10" y2="9"/><line x1="14" y1="15" x2="14" y2="9"/></svg>
+        <div><div class="h3" style="font-size:13px;">Перерывы</div><div class="cap">1 из 3 рекомендованных</div></div>
+      </div>
+      <div style="font-size:13px;font-weight:600;color:var(--warn);">1/3</div>
     </div>
   </div>
+  <div class="bnav">
+    <button class="nb on" onclick="go('s-dash')">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Главная
+    </button>
+    <button class="nb" onclick="go('s-insights')">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      Инсайты
+    </button>
+    <button class="nb" onclick="go('s-settings')">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      Настройки
+    </button>
+  </div>
+</div>
 
-  <!-- ════════════════════════════════ -->
-  <!-- S10: FEEDBACK                   -->
-  <!-- ════════════════════════════════ -->
-  <div class="screen" id="s-feedback">
-    <div class="sc" style="justify-content:space-between;">
-      <div class="col sc-center" style="padding:20px 0 10px;gap:12px;">
-        <svg width="52" height="52" viewBox="0 0 24 24" stroke="var(--ok)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+<!-- ════════════════════════════════════════════════════════════
+     SCREEN: DASHBOARD + NOTIFICATION
+════════════════════════════════════════════════════════════ -->
+<div class="screen" id="s-dash-notif">
+  <div class="scroll" style="padding-top:56px;gap:12px;">
+    <div class="notif" onclick="go('s-insight')">
+      <svg viewBox="0 0 24 24"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg>
+      <div>
+        <div class="cap" style="text-transform:uppercase;letter-spacing:0.08em;">Aura</div>
+        <div style="font-size:14px;font-weight:600;margin-top:2px;color:var(--text);">Фокус снижается — самое время для паузы</div>
+      </div>
+    </div>
+    <div class="rowb">
+      <div><div class="cap">Вторник, 14:23</div><div class="h2">Привет 👋</div></div>
+      <button style="width:42px;height:42px;border-radius:50%;background:var(--surface);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;" onclick="go('s-settings')">
+        <svg viewBox="0 0 24 24" width="20" height="20" stroke="var(--text3)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:4px 0;">
+      <div class="orb" style="width:90px;height:90px;"></div>
+      <div class="cap">Состояние: внимание</div>
+    </div>
+    <div class="pill-row">
+      <div class="pill"><div class="pl">Энергия</div><div class="pv" style="color:var(--warn);">Снижается</div></div>
+      <div class="pill"><div class="pl">Стресс</div><div class="pv" style="color:var(--warn);">Средний</div></div>
+      <div class="pill"><div class="pl">Без паузы</div><div class="pv" style="color:var(--warn);">2ч 47м</div></div>
+    </div>
+    <button class="btn-p" onclick="go('s-insight')">Посмотреть инсайт →</button>
+    <button class="btn-s" onclick="go('s-dash')">Напомни позже</button>
+  </div>
+  <div class="bnav">
+    <button class="nb on" onclick="go('s-dash')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Главная</button>
+    <button class="nb" onclick="go('s-insights')"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Инсайты</button>
+    <button class="nb" onclick="go('s-settings')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Настройки</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     SCREEN: INSIGHT DETAIL
+════════════════════════════════════════════════════════════ -->
+<div class="screen" id="s-insight">
+  <div class="scroll">
+    <div class="back" onclick="goBack()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Назад</div>
+    <div class="h2">Что заметила<br>Aura</div>
+    <div class="card col">
+      <div class="lbl">На основе данных</div>
+      <div class="col" style="gap:10px;">
+        <div class="rowb"><span class="cap" style="font-size:13px;">ЧСС за последний час</span><span style="font-size:13px;font-weight:700;color:var(--warn);">+14%</span></div>
+        <div class="bar-wrap"><div class="bar-fill" style="width:74%;background:var(--warn);"></div></div>
+        <div class="rowb"><span class="cap" style="font-size:13px;">Без движения</span><span style="font-size:13px;font-weight:700;color:var(--warn);">2ч 47м</span></div>
+        <div class="bar-wrap"><div class="bar-fill" style="width:88%;background:var(--warn);"></div></div>
+        <div class="rowb"><span class="cap" style="font-size:13px;">Фокус-индекс</span><span style="font-size:13px;font-weight:700;color:var(--aura-dark);">38 / 100</span></div>
+        <div class="bar-wrap"><div class="bar-fill" style="width:38%;"></div></div>
+      </div>
+    </div>
+    <div class="card-accent">
+      <div class="lbl" style="margin-bottom:8px;">Что это значит</div>
+      <div class="body" style="font-size:13px;">Признаки когнитивной усталости. Короткая пауза восстановит фокус на 25–35%. Лучше сделать это сейчас — до того, как накроет.</div>
+    </div>
+    <div class="lbl">Что попробовать</div>
+    <div class="agrid">
+      <div class="aopt" onclick="go('s-timer')">
+        <svg viewBox="0 0 24 24"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg>
+        <span>5 мин дыхание</span>
+      </div>
+      <div class="aopt" onclick="go('s-feedback')">
+        <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        <span>Прогуляться</span>
+      </div>
+      <div class="aopt" onclick="go('s-feedback')">
+        <svg viewBox="0 0 24 24"><line x1="1" y1="1" x2="23" y2="23"/><path d="M17 17H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1m3-3h6l2 3h1a2 2 0 0 1 2 2v3.5"/></svg>
+        <span>Убрать экран</span>
+      </div>
+    </div>
+    <div class="col">
+      <button class="btn-s" onclick="go('s-dash')">Напомни через 20 минут</button>
+      <button class="btn-ghost" onclick="go('s-dash')">Всё в порядке, спасибо</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     SCREEN: TIMER
+════════════════════════════════════════════════════════════ -->
+<div class="screen" id="s-timer">
+  <div class="scroll" style="justify-content:space-between;align-items:center;">
+    <div class="back" style="align-self:flex-start;" onclick="goBack()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Назад</div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;width:100%;">
+      <div class="h2" style="text-align:center;">Дыхательная<br>практика</div>
+      <div class="timer-wrap">
+        <svg viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="90" cy="90" r="80" stroke="#EDE9E1" stroke-width="8"/>
+          <circle cx="90" cy="90" r="80" stroke="var(--aura)" stroke-width="8"
+            stroke-dasharray="502.65" stroke-dashoffset="125" id="t-progress"
+            style="transition:stroke-dashoffset 1s linear;"/>
         </svg>
-        <div class="t-h2" style="text-align:center;">Практика<br>завершена</div>
+        <div class="timer-n" id="t-num">4:10</div>
       </div>
-      <div class="col gap20" style="flex:1;justify-content:center;">
-        <div class="col gap12">
-          <div class="t-h3" style="text-align:center;">Как ты себя чувствуешь?</div>
-          <div class="emoji-row">
-            <div class="emoji-opt sel" onclick="selectEmoji(this)">
-              <svg viewBox="0 0 24 24" stroke="var(--ok)"><circle cx="12" cy="12" r="10"/><path d="M8 13s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-              <div class="el">Лучше</div>
-            </div>
-            <div class="emoji-opt" onclick="selectEmoji(this)">
-              <svg viewBox="0 0 24 24" stroke="var(--text3)"><circle cx="12" cy="12" r="10"/><line x1="8" y1="15" x2="16" y2="15"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-              <div class="el">Так же</div>
-            </div>
-            <div class="emoji-opt" onclick="selectEmoji(this)">
-              <svg viewBox="0 0 24 24" stroke="var(--warn)"><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-              <div class="el">Хуже</div>
-            </div>
-          </div>
-        </div>
-        <div class="col gap8">
-          <div class="t-sm" style="text-align:center;color:var(--text3);">Что помогло? (необязательно)</div>
-          <div class="rating-row" style="justify-content:center;">
-            <div class="rtag sel" onclick="toggleRtag(this)">Дыхание</div>
-            <div class="rtag" onclick="toggleRtag(this)">Пауза</div>
-            <div class="rtag" onclick="toggleRtag(this)">Тишина</div>
-            <div class="rtag" onclick="toggleRtag(this)">Смена позы</div>
-          </div>
-        </div>
-        <div class="card-sm" style="text-align:center;">
-          <div class="t-sm">Твой ответ помогает Aura лучше понимать тебя</div>
-        </div>
+      <div class="card" style="text-align:center;width:100%;max-width:280px;">
+        <div class="h3" id="t-phase" style="margin-bottom:6px;">Выдох медленно...</div>
+        <div class="cap">Следи за ритмом — 4 счёта вдох, 4 выдох</div>
       </div>
-      <button class="btn btn-p" onclick="go('s-dashboard')">Готово</button>
+      <button class="btn-p" style="max-width:280px;" onclick="go('s-feedback')">Завершить практику</button>
     </div>
   </div>
+</div>
 
-  <!-- ════════════════════════════════ -->
-  <!-- S11: WEEKLY INSIGHTS            -->
-  <!-- ════════════════════════════════ -->
-  <div class="screen" id="s-insights">
-    <div class="sc" style="padding-top:60px;">
-      <div class="btw">
-        <div class="col gap4">
-          <div class="t-caption">Неделя 1–7 апреля</div>
-          <div class="t-h2">Что узнала<br>Aura о тебе</div>
-        </div>
-        <div class="stat-box"><div class="stat-num">–12%</div><div class="stat-lbl">Стресс-индекс</div></div>
-      </div>
-
-      <div class="t-caption">Паттерны недели</div>
-
-      <div class="wcard">
-        <div class="row gap8"><svg width="18" height="18" viewBox="0 0 24 24" stroke="var(--warn)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg><div class="wcard-pattern">Ты лучше концентрируешься до 12:00</div></div>
-        <div class="t-sm">Среднее время фокуса утром — 47 мин. После 14:00 — 18 мин.</div>
-        <div class="t-sm" style="color:var(--text);">Это про тебя?</div>
-        <div class="rating-row">
-          <div class="rtag sel" onclick="toggleRtag(this)">Точно да</div>
-          <div class="rtag" onclick="toggleRtag(this)">Не совсем</div>
-          <div class="rtag" onclick="toggleRtag(this)">Не про меня</div>
-        </div>
-      </div>
-
-      <div class="wcard">
-        <div class="row gap8"><svg width="18" height="18" viewBox="0 0 24 24" stroke="var(--aura)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><div class="wcard-pattern">Стресс растёт в среду вечером</div></div>
-        <div class="t-sm">В среду после 18:00 ЧСС стабильно выше нормы на 8–15%.</div>
-        <div class="t-sm" style="color:var(--text);">Это про тебя?</div>
-        <div class="rating-row">
-          <div class="rtag" onclick="toggleRtag(this)">Точно да</div>
-          <div class="rtag sel" onclick="toggleRtag(this)">Не совсем</div>
-          <div class="rtag" onclick="toggleRtag(this)">Не про меня</div>
+<!-- ════════════════════════════════════════════════════════════
+     SCREEN: FEEDBACK
+════════════════════════════════════════════════════════════ -->
+<div class="screen" id="s-feedback">
+  <div class="scroll" style="justify-content:space-between;">
+    <div style="text-align:center;padding:24px 0 8px;">
+      <svg viewBox="0 0 24 24" width="52" height="52" style="margin:0 auto 12px;" stroke="var(--positive)" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <div class="h2">Практика<br>завершена</div>
+    </div>
+    <div class="col" style="flex:1;justify-content:center;">
+      <div>
+        <div class="h3" style="text-align:center;font-size:15px;margin-bottom:16px;">Как ты себя чувствуешь?</div>
+        <div class="emo-row">
+          <div class="emo on" id="e1" onclick="selEmo('e1')">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 13s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+            <span>Лучше</span>
+          </div>
+          <div class="emo" id="e2" onclick="selEmo('e2')">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="8" y1="15" x2="16" y2="15"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+            <span>Так же</span>
+          </div>
+          <div class="emo" id="e3" onclick="selEmo('e3')">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+            <span>Хуже</span>
+          </div>
         </div>
       </div>
-
-      <div class="wcard">
-        <div class="row gap8"><svg width="18" height="18" viewBox="0 0 24 24" stroke="var(--ok)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg><div class="wcard-pattern">Дыхательные практики помогают тебе</div></div>
-        <div class="t-sm">4 из 5 раз ЧСС снизился в течение 10 минут после практики.</div>
-        <div class="t-sm" style="color:var(--text);">Это про тебя?</div>
-        <div class="rating-row">
-          <div class="rtag sel" onclick="toggleRtag(this)">Точно да</div>
-          <div class="rtag" onclick="toggleRtag(this)">Не совсем</div>
-          <div class="rtag" onclick="toggleRtag(this)">Не про меня</div>
+      <div>
+        <div class="cap" style="text-align:center;margin-bottom:10px;">Что помогло? (необязательно)</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+          <div class="chip on" onclick="togChip(this)">Дыхание</div>
+          <div class="chip" onclick="togChip(this)">Пауза</div>
+          <div class="chip" onclick="togChip(this)">Тишина</div>
+          <div class="chip" onclick="togChip(this)">Смена позы</div>
         </div>
       </div>
-
-      <div class="t-caption">Что сработало</div>
-      <div class="card-sm btw"><div class="row gap10"><svg width="16" height="16" viewBox="0 0 24 24" stroke="var(--text3)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg><span class="t-sm" style="color:var(--text);">Дыхательная практика</span></div><span style="font-size:13px;font-weight:700;color:var(--ok);">4/5</span></div>
-      <div class="card-sm btw"><div class="row gap10"><svg width="16" height="16" viewBox="0 0 24 24" stroke="var(--text3)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span class="t-sm" style="color:var(--text);">Прогулка</span></div><span style="font-size:13px;font-weight:700;color:var(--warn);">2/3</span></div>
-
-      <div class="card-accent" style="text-align:center;">
-        <div class="t-sm">Спасибо — Aura стала чуть лучше понимать тебя. До следующей недели</div>
+      <div class="card-sm" style="text-align:center;">
+        <div class="cap">Твой ответ помогает Aura лучше понимать тебя</div>
       </div>
     </div>
-    <div class="bnav">
-      <button class="nb" onclick="go('s-dashboard')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Главная</button>
-      <button class="nb on"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Инсайты</button>
-      <button class="nb" onclick="go('s-settings')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Настройки</button>
-    </div>
+    <button class="btn-p" onclick="go('s-dash')">Готово</button>
   </div>
+</div>
 
-  <!-- ════════════════════════════════ -->
-  <!-- S12: SETTINGS                   -->
-  <!-- ════════════════════════════════ -->
-  <div class="screen" id="s-settings">
-    <div class="sc" style="padding-top:60px;">
-      <button class="back-btn" onclick="go('s-dashboard','back')">
-        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-        Назад
+<!-- ════════════════════════════════════════════════════════════
+     SCREEN: WEEKLY INSIGHTS
+════════════════════════════════════════════════════════════ -->
+<div class="screen" id="s-insights">
+  <div class="scroll" style="padding-top:56px;">
+    <div class="rowb">
+      <div>
+        <div class="lbl" style="margin-bottom:4px;">Неделя 1–7 апреля</div>
+        <div class="h2">Что узнала<br>Aura о тебе</div>
+      </div>
+      <div class="stat-box"><div class="stat-n">–12%</div><div class="stat-l">Стресс-индекс</div></div>
+    </div>
+    <div class="lbl">Паттерны недели</div>
+    <div class="wcard">
+      <div class="row" style="gap:10px;">
+        <svg viewBox="0 0 24 24" width="18" height="18" stroke="var(--warn)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        <div class="h3" style="font-size:14px;">Лучше концентрируешься до 12:00</div>
+      </div>
+      <div class="cap">Среднее время фокуса утром — 47 мин. После 14:00 — только 18 мин.</div>
+      <div class="body" style="font-size:13px;">Это про тебя?</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <div class="chip on" onclick="togChip(this)">Точно да</div>
+        <div class="chip" onclick="togChip(this)">Не совсем</div>
+        <div class="chip" onclick="togChip(this)">Не про меня</div>
+      </div>
+    </div>
+    <div class="wcard">
+      <div class="row" style="gap:10px;">
+        <svg viewBox="0 0 24 24" width="18" height="18" stroke="var(--aura)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <div class="h3" style="font-size:14px;">Стресс растёт в среду вечером</div>
+      </div>
+      <div class="cap">В среду после 18:00 ЧСС выше нормы на 8–15%. Каждую неделю.</div>
+      <div class="body" style="font-size:13px;">Это про тебя?</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <div class="chip" onclick="togChip(this)">Точно да</div>
+        <div class="chip on" onclick="togChip(this)">Не совсем</div>
+        <div class="chip" onclick="togChip(this)">Не про меня</div>
+      </div>
+    </div>
+    <div class="wcard">
+      <div class="row" style="gap:10px;">
+        <svg viewBox="0 0 24 24" width="18" height="18" stroke="var(--positive)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg>
+        <div class="h3" style="font-size:14px;">Дыхательные практики помогают</div>
+      </div>
+      <div class="cap">4 из 5 раз — ЧСС снизился в течение 10 минут после практики.</div>
+      <div class="body" style="font-size:13px;">Это про тебя?</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <div class="chip on" onclick="togChip(this)">Точно да</div>
+        <div class="chip" onclick="togChip(this)">Не совсем</div>
+        <div class="chip" onclick="togChip(this)">Не про меня</div>
+      </div>
+    </div>
+    <div class="lbl">Что сработало</div>
+    <div class="card-sm rowb">
+      <div class="row">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="var(--text3)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg>
+        <div class="h3" style="font-size:13px;">Дыхательная практика</div>
+      </div>
+      <span style="font-size:13px;font-weight:700;color:var(--positive);">4/5</span>
+    </div>
+    <div class="card-sm rowb">
+      <div class="row">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="var(--text3)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        <div class="h3" style="font-size:13px;">Прогулка</div>
+      </div>
+      <span style="font-size:13px;font-weight:700;color:var(--warn);">2/3</span>
+    </div>
+    <div class="card-accent" style="text-align:center;">
+      <div class="cap">Спасибо — Aura стала чуть лучше понимать тебя. До следующей недели 💙</div>
+    </div>
+    <div style="height:8px;"></div>
+  </div>
+  <div class="bnav">
+    <button class="nb" onclick="go('s-dash')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Главная</button>
+    <button class="nb on"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Инсайты</button>
+    <button class="nb" onclick="go('s-settings')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Настройки</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     SCREEN: SETTINGS
+════════════════════════════════════════════════════════════ -->
+<div class="screen" id="s-settings">
+  <div class="scroll" style="padding-top:56px;">
+    <div class="back" onclick="goBack()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Назад</div>
+    <div class="h2">Мои данные<br>и настройки</div>
+    <div class="card col">
+      <div class="lbl">Уведомления</div>
+      <div class="col" style="gap:8px;">
+        <div class="cap">Частота</div>
+        <div style="display:flex;gap:8px;">
+          <div class="chip" onclick="togChip(this)">Редко</div>
+          <div class="chip on" onclick="togChip(this)">Умеренно</div>
+          <div class="chip" onclick="togChip(this)">Часто</div>
+        </div>
+      </div>
+      <div class="srow">
+        <div class="srow-info"><div class="sn">Тихие часы</div><div class="ss">22:00 — 08:00</div></div>
+        <div class="tog on" onclick="this.classList.toggle('on');this.classList.toggle('off');"></div>
+      </div>
+    </div>
+    <div class="card col">
+      <div class="lbl">Источники данных</div>
+      <div class="perm">
+        <div class="ibox" style="background:rgba(91,158,245,0.08);">
+          <svg viewBox="0 0 24 24" stroke="var(--positive)"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <div style="flex:1;"><div class="h3" style="font-size:14px;">Apple Health</div></div>
+        <div class="tog on" onclick="this.classList.toggle('on');this.classList.toggle('off');"></div>
+      </div>
+      <div class="perm">
+        <div class="ibox" style="background:rgba(242,158,158,0.1);">
+          <svg viewBox="0 0 24 24" stroke="var(--warn)"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div style="flex:1;"><div class="h3" style="font-size:14px;">Календарь</div></div>
+        <div class="tog on" onclick="this.classList.toggle('on');this.classList.toggle('off');"></div>
+      </div>
+    </div>
+    <div class="card col">
+      <div class="lbl">Типы советов</div>
+      <div class="srow">
+        <div class="row" style="gap:10px;"><svg viewBox="0 0 24 24" width="16" height="16" stroke="var(--text3)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg><div class="sn">Дыхательные практики</div></div>
+        <div class="tog on" onclick="this.classList.toggle('on');this.classList.toggle('off');"></div>
+      </div>
+      <div class="srow">
+        <div class="row" style="gap:10px;"><svg viewBox="0 0 24 24" width="16" height="16" stroke="var(--text3)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg><div class="sn">Движение</div></div>
+        <div class="tog on" onclick="this.classList.toggle('on');this.classList.toggle('off');"></div>
+      </div>
+      <div class="srow">
+        <div class="row" style="gap:10px;"><svg viewBox="0 0 24 24" width="16" height="16" stroke="var(--text3)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><div class="sn">Фокус-режим</div></div>
+        <div class="tog on" onclick="this.classList.toggle('on');this.classList.toggle('off');"></div>
+      </div>
+      <div class="srow">
+        <div class="row" style="gap:10px;"><svg viewBox="0 0 24 24" width="16" height="16" stroke="var(--text3)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><div class="sn">Питание</div></div>
+        <div class="tog off" onclick="this.classList.toggle('on');this.classList.toggle('off');"></div>
+      </div>
+    </div>
+    <div class="col" style="padding-bottom:16px;">
+      <button class="btn-s" style="display:flex;align-items:center;justify-content:center;gap:8px;">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Скачать мои данные
       </button>
-      <div class="t-h2">Мои данные<br>и настройки</div>
-
-      <div class="card col gap14">
-        <div class="t-caption">Уведомления</div>
-        <div class="col gap6">
-          <div class="t-sm">Частота</div>
-          <div class="pill-freq">
-            <button class="pf-btn" onclick="selectFreq(this)">Редко</button>
-            <button class="pf-btn sel" onclick="selectFreq(this)">Умеренно</button>
-            <button class="pf-btn" onclick="selectFreq(this)">Часто</button>
-          </div>
-        </div>
-        <div class="srow">
-          <div><div class="srow-name">Тихие часы</div><div class="srow-sub">22:00 — 08:00</div></div>
-          <button class="toggle on" onclick="this.classList.toggle('on');this.classList.toggle('off')"></button>
-        </div>
-      </div>
-
-      <div class="card col gap10">
-        <div class="t-caption">Источники данных</div>
-        <div class="perm-item">
-          <div class="ibox" style="background:var(--ok-bg);">
-            <svg viewBox="0 0 24 24" stroke="var(--ok)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-          </div>
-          <div style="flex:1;"><div class="perm-name">Apple Health</div></div>
-          <button class="toggle on" onclick="this.classList.toggle('on');this.classList.toggle('off')"></button>
-        </div>
-        <div class="perm-item">
-          <div class="ibox" style="background:var(--warn-bg);">
-            <svg viewBox="0 0 24 24" stroke="var(--warn)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          </div>
-          <div style="flex:1;"><div class="perm-name">Календарь</div></div>
-          <button class="toggle on" onclick="this.classList.toggle('on');this.classList.toggle('off')"></button>
-        </div>
-      </div>
-
-      <div class="card col gap4">
-        <div class="t-caption" style="margin-bottom:6px;">Типы советов</div>
-        <div class="srow"><div class="row gap10"><svg width="16" height="16" viewBox="0 0 24 24" stroke="var(--text3)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg><div class="srow-name">Дыхательные практики</div></div><button class="toggle on" onclick="this.classList.toggle('on');this.classList.toggle('off')"></button></div>
-        <div class="srow"><div class="row gap10"><svg width="16" height="16" viewBox="0 0 24 24" stroke="var(--text3)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><div class="srow-name">Движение и прогулки</div></div><button class="toggle on" onclick="this.classList.toggle('on');this.classList.toggle('off')"></button></div>
-        <div class="srow"><div class="row gap10"><svg width="16" height="16" viewBox="0 0 24 24" stroke="var(--text3)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><div class="srow-name">Фокус-режим</div></div><button class="toggle on" onclick="this.classList.toggle('on');this.classList.toggle('off')"></button></div>
-        <div class="srow"><div class="row gap10"><svg width="16" height="16" viewBox="0 0 24 24" stroke="var(--text3)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><div class="srow-name">Питание</div></div><button class="toggle off" onclick="this.classList.toggle('on');this.classList.toggle('off')"></button></div>
-      </div>
-
-      <div class="col gap8">
-        <button class="btn btn-o" style="gap:10px;"><svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Скачать мои данные</button>
-        <button class="btn btn-danger" style="gap:10px;"><svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>Удалить аккаунт и данные</button>
-      </div>
-      <div style="height:16px;"></div>
-    </div>
-    <div class="bnav">
-      <button class="nb" onclick="go('s-dashboard')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Главная</button>
-      <button class="nb" onclick="go('s-insights')"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Инсайты</button>
-      <button class="nb on"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Настройки</button>
+      <button class="btn-danger" style="display:flex;align-items:center;justify-content:center;gap:8px;">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+        Удалить аккаунт и данные
+      </button>
     </div>
   </div>
-
-</div><!-- /phone -->
-
-<!-- ── SIDEBAR ── -->
-<div class="sidebar" id="sidebar">
-  <div class="sidebar-title">Навигация по прототипу</div>
-  <div class="flow-group">
-    <div class="flow-group-label">Сценарий 1 — Онбординг</div>
-    <button class="fstep cur" id="nav-s-welcome" onclick="go('s-welcome')"><div class="fstep-num">1</div><div class="fstep-lbl">Приветствие</div></button>
-    <button class="fstep" id="nav-s-onb1" onclick="go('s-onb1')"><div class="fstep-num">2</div><div class="fstep-lbl">Возможности Aura</div></button>
-    <button class="fstep" id="nav-s-onb2" onclick="go('s-onb2')"><div class="fstep-num">3</div><div class="fstep-lbl">Как работает</div></button>
-    <button class="fstep" id="nav-s-onb3" onclick="go('s-onb3')"><div class="fstep-num">4</div><div class="fstep-lbl">Приватность</div></button>
-    <button class="fstep" id="nav-s-perm1" onclick="go('s-perm1')"><div class="fstep-num">5</div><div class="fstep-lbl">Разрешение — Health</div></button>
-    <button class="fstep" id="nav-s-perm2" onclick="go('s-perm2')"><div class="fstep-num">6</div><div class="fstep-lbl">Разрешение — Календарь</div></button>
-    <button class="fstep" id="nav-s-quiz" onclick="go('s-quiz')"><div class="fstep-num">7</div><div class="fstep-lbl">Мини-опрос</div></button>
-  </div>
-  <div class="flow-group">
-    <div class="flow-group-label">Главный экран</div>
-    <button class="fstep" id="nav-s-dashboard" onclick="go('s-dashboard')"><div class="fstep-num">8</div><div class="fstep-lbl">Дашборд</div></button>
-  </div>
-  <div class="flow-group">
-    <div class="flow-group-label">Сценарий 2 — Уведомление</div>
-    <button class="fstep" id="nav-s-insight-detail" onclick="go('s-insight-detail')"><div class="fstep-num">9</div><div class="fstep-lbl">Детальный инсайт</div></button>
-    <button class="fstep" id="nav-s-timer" onclick="go('s-timer')"><div class="fstep-num">10</div><div class="fstep-lbl">Практика + таймер</div></button>
-    <button class="fstep" id="nav-s-feedback" onclick="go('s-feedback')"><div class="fstep-num">11</div><div class="fstep-lbl">Обратная связь</div></button>
-  </div>
-  <div class="flow-group">
-    <div class="flow-group-label">Сценарий 3 — Инсайты</div>
-    <button class="fstep" id="nav-s-insights" onclick="go('s-insights')"><div class="fstep-num">12</div><div class="fstep-lbl">Инсайты недели</div></button>
-  </div>
-  <div class="flow-group">
-    <div class="flow-group-label">Дополнительно</div>
-    <button class="fstep" id="nav-s-settings" onclick="go('s-settings')"><div class="fstep-num">13</div><div class="fstep-lbl">Настройки</div></button>
+  <div class="bnav">
+    <button class="nb" onclick="go('s-dash')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Главная</button>
+    <button class="nb" onclick="go('s-insights')"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Инсайты</button>
+    <button class="nb on"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Настройки</button>
   </div>
 </div>
 
 </div><!-- /shell -->
 
 <script>
-/* ═══════════════════════════════════════
-   NAVIGATION
-═══════════════════════════════════════ */
-let current = 's-welcome';
+// ═══════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════
 let history = [];
+let current = 's-welcome';
 let timerInterval = null;
-let timerSec = 300;
 
-function go(id, dir) {
+function go(id) {
   if (id === current) return;
-  const from = document.getElementById(current);
-  const to   = document.getElementById(id);
-  if (!from || !to) return;
+  const prev = document.getElementById(current);
+  const next = document.getElementById(id);
+  if (!next) return;
 
-  const isBack = dir === 'back';
+  history.push(current);
 
-  from.classList.remove('active');
-  from.classList.add(isBack ? 'slide-out-right' : 'slide-out');
-  setTimeout(() => { from.classList.remove('slide-out','slide-out-right'); }, 350);
+  // exit current
+  prev.classList.remove('active');
+  prev.classList.add('exit-left');
+  setTimeout(() => prev.classList.remove('exit-left'), 400);
 
-  to.style.opacity = '0';
-  to.classList.add('active');
-  to.classList.add(isBack ? 'slide-in-left' : 'slide-in');
-  to.style.opacity = '';
-  setTimeout(() => { to.classList.remove('slide-in','slide-in-left'); }, 350);
+  // enter next
+  next.style.transform = 'translateX(100%)';
+  next.style.transition = 'none';
+  next.classList.add('active');
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      next.style.transition = '';
+      next.style.transform = '';
+    });
+  });
 
-  if (!isBack) history.push(current);
   current = id;
 
   // scroll to top
-  const sc = to.querySelector('.sc');
-  if (sc) sc.scrollTop = 0;
+  const scroll = next.querySelector('.scroll');
+  if (scroll) scroll.scrollTop = 0;
+
+  // update flow map highlight
+  updateFlowMap();
 
   // timer
   if (id === 's-timer') startTimer();
-  else { stopTimer(); }
-
-  // update sidebar
-  document.querySelectorAll('.fstep').forEach(b => b.classList.remove('cur'));
-  const navBtn = document.getElementById('nav-' + id);
-  if (navBtn) navBtn.classList.add('cur');
+  else stopTimer();
 }
 
-/* ═══════════════════════════════════════
-   TIMER
-═══════════════════════════════════════ */
+function goBack() {
+  if (history.length === 0) return;
+  const prev = history.pop();
+  const curEl = document.getElementById(current);
+  const prevEl = document.getElementById(prev);
+  if (!prevEl) return;
+
+  curEl.classList.remove('active');
+  curEl.style.transition = 'opacity 0.25s, transform 0.3s';
+  curEl.style.opacity = '0';
+  curEl.style.transform = 'translateX(30%)';
+  setTimeout(() => {
+    curEl.style.transition = '';
+    curEl.style.opacity = '';
+    curEl.style.transform = '';
+  }, 350);
+
+  prevEl.style.transform = 'translateX(-10%)';
+  prevEl.style.opacity = '0.7';
+  prevEl.style.transition = 'none';
+  prevEl.classList.add('active');
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      prevEl.style.transition = 'opacity 0.3s, transform 0.3s';
+      prevEl.style.transform = '';
+      prevEl.style.opacity = '';
+      setTimeout(() => prevEl.style.transition = '', 350);
+    });
+  });
+
+  current = prev;
+  updateFlowMap();
+  stopTimer();
+}
+
+function jumpTo(id) {
+  document.getElementById('flow-map').classList.remove('open');
+  // direct jump without animation
+  const curEl = document.getElementById(current);
+  curEl.classList.remove('active');
+  const nextEl = document.getElementById(id);
+  if (nextEl) {
+    nextEl.classList.add('active');
+    history = [];
+    current = id;
+    const scroll = nextEl.querySelector('.scroll');
+    if (scroll) scroll.scrollTop = 0;
+    updateFlowMap();
+    if (id === 's-timer') startTimer(); else stopTimer();
+  }
+}
+
+function updateFlowMap() {
+  document.querySelectorAll('.fmap-btn').forEach(btn => {
+    btn.classList.remove('cur');
+    const onclick = btn.getAttribute('onclick');
+    if (onclick && onclick.includes(`'${current}'`)) btn.classList.add('cur');
+  });
+}
+
+// ═══════════════════════════════════════
+// INTERACTIVE ELEMENTS
+// ═══════════════════════════════════════
+function togTag(id) {
+  document.getElementById(id).classList.toggle('on');
+}
+function togChip(el) {
+  el.classList.toggle('on');
+}
+function selEmo(id) {
+  ['e1','e2','e3'].forEach(e => document.getElementById(e).classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+}
+
+// ═══════════════════════════════════════
+// TIMER
+// ═══════════════════════════════════════
+let timerSec = 250;
+const phases = ['Вдох... 1, 2, 3, 4', 'Задержи...', 'Выдох... 1, 2, 3, 4', 'Пауза...'];
+let phaseIdx = 0;
+
 function startTimer() {
   stopTimer();
-  timerSec = 300;
-  const phases = ['Вдох...','Задержи...','Выдох...','Пауза...'];
-  let pi = 0;
-  const track = document.getElementById('timer-track');
-  const display = document.getElementById('timer-display');
-  const phase = document.getElementById('breathe-phase');
-  const total = 502.65;
-
+  timerSec = 250;
+  updateTimer();
   timerInterval = setInterval(() => {
     timerSec--;
-    const m = Math.floor(timerSec / 60);
-    const s = timerSec % 60;
-    if (display) display.textContent = `${m}:${s.toString().padStart(2,'0')}`;
-    if (track)   track.style.strokeDashoffset = total * (1 - timerSec / 300);
-    if (timerSec % 4 === 0 && phase) { pi = (pi + 1) % phases.length; phase.textContent = phases[pi]; }
-    if (timerSec <= 0) { stopTimer(); go('s-feedback'); }
+    if (timerSec <= 0) { stopTimer(); go('s-feedback'); return; }
+    updateTimer();
+    if (timerSec % 4 === 0) {
+      phaseIdx = (phaseIdx + 1) % phases.length;
+      const ph = document.getElementById('t-phase');
+      if (ph) ph.textContent = phases[phaseIdx];
+    }
   }, 1000);
+}
+
+function updateTimer() {
+  const m = Math.floor(timerSec / 60);
+  const s = timerSec % 60;
+  const numEl = document.getElementById('t-num');
+  const prog = document.getElementById('t-progress');
+  if (numEl) numEl.textContent = `${m}:${s.toString().padStart(2,'0')}`;
+  if (prog) {
+    const total = 502.65;
+    prog.style.strokeDashoffset = total * (1 - timerSec / 300);
+  }
 }
 
 function stopTimer() {
   if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
 }
 
-/* ═══════════════════════════════════════
-   INTERACTIVE ELEMENTS
-═══════════════════════════════════════ */
-function toggleChip(el) { el.classList.toggle('sel'); }
-
-function toggleRtag(el) {
-  const row = el.closest('.rating-row');
-  row.querySelectorAll('.rtag').forEach(r => r.classList.remove('sel'));
-  el.classList.add('sel');
-}
-
-function selectEmoji(el) {
-  el.closest('.emoji-row').querySelectorAll('.emoji-opt').forEach(e => e.classList.remove('sel'));
-  el.classList.add('sel');
-}
-
-function selectFreq(el) {
-  el.closest('.pill-freq').querySelectorAll('.pf-btn').forEach(b => b.classList.remove('sel'));
-  el.classList.add('sel');
-}
+// init
+updateFlowMap();
 </script>
 </body>
 </html>
